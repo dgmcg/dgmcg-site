@@ -112,6 +112,14 @@
   <footer>
     <p>&copy; 2025 - Diretoria Geral de Monitoramento dos Contratos de Gestão (DGMCG)</p>
   </footer>
+ <script>
+    // Proteção com senha
+    const senha = "dgmcg@2025";
+    let tentativa = prompt("Digite a senha para acessar o portal:");
 
+    if (tentativa !== senha) {
+      document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:50px;'>Acesso Negado</h1>";
+    }
+</script>
 </body>
 </html>
