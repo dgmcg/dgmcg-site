@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DGMCG - Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 20px;
+    }
+    header img {
+      max-height: 80px;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    button {
+      margin: 15px;
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background-color: #003366;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #0055aa;
+    }
+    iframe {
+      margin-top: 20px;
+      width: 90%;
+      height: 600px;
+      border: none;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="LOGO DGMCG.png" alt="Logo DGMCG">
+    <h1>Portal da DGMCG</h1>
+  </header>
+
+  <div class="container" id="menu">
+    <h2>Selecione uma opção</h2>
+    <button onclick="mostrarDashboard()">Dashboard</button>
+    <button onclick="mostrarRelatorio()">Relatório</button>
+  </div>
+
+  <!-- Iframes ocultos -->
+  <iframe id="dashboard" src="https://app.powerbi.com/view?r=SEU_LINK_AQUI" title="Dashboard Power BI"></iframe>
+  <iframe id="relatorio" src="https://gamma.app/embed/a7gddjnv9dldb34" title="Relatório Gamma"></iframe>
+
+  <script>
+    // Proteção com senha
+    const senha = "dgmcg@2025";
+    let tentativa = prompt("Digite a senha para acessar o portal:");
+
+    if (tentativa !== senha) {
+      document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:50px;'>Acesso Negado</h1>";
+    }
+
+    // Exibir iframes
+    function mostrarDashboard() {
+      document.getElementById('dashboard').style.display = "block";
+      document.getElementById('relatorio').style.display = "none";
+    }
+    function mostrarRelatorio() {
+      document.getElementById('dashboard').style.display = "none";
+      document.getElementById('relatorio').style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
