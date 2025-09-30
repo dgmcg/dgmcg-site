@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Dashboards — DGMCG</title>
+  <style>
+    :root{--azul-escuro:#002147; --bg:#f8f9fc; --card:#fff}
+    *{box-sizing:border-box}
+    body{margin:0; font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background:var(--bg)}
+    header{
+      background:var(--azul-escuro); color:#fff; padding:14px 28px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .brand{display:flex; align-items:center; gap:14px}
+    .brand img{height:56px}
+    nav a{color:#fff; text-decoration:none; font-weight:600; padding:8px 12px; border:1px solid transparent; border-radius:8px}
+    nav a:hover{border-color:#fff}
+    .container{max-width:1200px; margin:26px auto; padding:0 16px}
+    .tabs{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px}
+    .tabs button{
+      border:1px solid #ccc; background:#fff; padding:10px 16px; border-radius:8px; cursor:pointer; font-weight:600
+    }
+    .tabs button.active{border-color:#002147}
+    .iframe-wrap{
+      position:relative; width:100%; padding-top:56.25%; background:var(--card);
+      border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.08); overflow:hidden
+    }
+    iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+  </style>
+  <script>
+    function show(tab){
+      document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+      document.getElementById("btn-"+tab).classList.add("active");
+      document.querySelectorAll(".pane").forEach(p=>p.style.display="none");
+      document.getElementById("pane-"+tab).style.display="block";
+    }
+    document.addEventListener("DOMContentLoaded", ()=>show("transparencia"));
+  </script>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="assets/logo-dgmcg.png" alt="Logo DGMCG"/>
+      <strong>DGMCG — Dashboards</strong>
+    </div>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="escalex.html">Escalex</a>
+      <a href="dashboards.html">Dashboards</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="tabs">
+      <button id="btn-transparencia" onclick="show('transparencia')">Evolução da Transparência</button>
+      <button id="btn-tas" onclick="show('tas')">Evolução dos Contratos de Gestão (T.A's)</button>
+      <button id="btn-producao" onclick="show('producao')">Produção Hospitalar</button>
+      <button id="btn-especialidades" onclick="show('especialidades')">Especialidades Hospitalares</button>
+    </div>
+
+    <!-- Transparência -->
+    <section id="pane-transparencia" class="pane">
+      <div class="iframe-wrap">
+        <iframe title="Transparência"
+          src="https://app.powerbi.com/view?r=eyJrIjoiNzA0ZTUyYjItYzAxYi00OWQyLWJkZTEtMzY3OWU3ZTVkYjk3IiwidCI6IjQ4YWFmOTY3LTE3MjAtNDY2ZC04M2Y0LTJiOTAxOWRhNTg0ZiJ9"
+          allowfullscreen="true"></iframe>
+      </div>
+    </section>
+
+    <!-- TAs Evolução dos Contratos de Gestão -->
+    <section id="pane-tas" class="pane" style="display:none">
+      <div class="iframe-wrap">
+        <iframe title="TAs Evolução dos Contratos de Gestão"
+          src="https://app.powerbi.com/view?r=eyJrIjoiN2I1YzJiNTctM2IxNy00M2UwLWExYTEtOWVjMDcyZWMyZGM3IiwidCI6IjQ4YWFmOTY3LTE3MjAtNDY2ZC04M2Y0LTJiOTAxOWRhNTg0ZiJ9"
+          allowfullscreen="true"></iframe>
+      </div>
+    </section>
+
+    <!-- Produção Hospitalar -->
+    <section id="pane-producao" class="pane" style="display:none">
+      <div class="iframe-wrap">
+        <iframe title="Produção"
+          src="https://app.powerbi.com/view?r=eyJrIjoiZmZhMTdmMDQtNzkwOS00MjUwLWIyNGQtODkxNjNlNTM1ZmFmIiwidCI6IjQ4YWFmOTY3LTE3MjAtNDY2ZC04M2Y0LTJiOTAxOWRhNTg0ZiJ9"
+          allowfullscreen="true"></iframe>
+      </div>
+    </section>
+
+    <!-- Especialidades Hospitalares -->
+    <section id="pane-especialidades" class="pane" style="display:none">
+      <div class="iframe-wrap">
+        <iframe title="Dash UPAE Especialidade"
+          src="https://app.powerbi.com/view?r=eyJrIjoiMTg3ZGNjZTktZDdiNS00Yjg2LWIyYjItNmU1ZmRjM2QwNjg4IiwidCI6IjQ4YWFmOTY3LTE3MjAtNDY2ZC04M2Y0LTJiOTAxOWRhNTg0ZiJ9"
+          allowfullscreen="true"></iframe>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
