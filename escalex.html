@@ -63,6 +63,23 @@
       display: block;
     }
   </style>
+  <script>
+  (function(){
+    const KEY="dgmcg_aut", PASS="dgmcg@2025";
+    try {
+      const ok = sessionStorage.getItem(KEY) === PASS; // troque por localStorage se preferir persistir
+      if (!ok) {
+        // monta o parâmetro next com o caminho relativo atual
+        const path = location.pathname.split("/").pop() || "index.html";
+        const qs = location.search ? encodeURIComponent(location.search) : "";
+        location.href = `index.html?next=${path}${qs ? decodeURIComponent(qs) : ""}`;
+      }
+    } catch(e){
+      // fallback: se storage falhar por algum motivo, manda para a home
+      location.href = "index.html";
+    }
+  })();
+</script>
 </head>
 <body>
   <header>
