@@ -1,154 +1,119 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portal DGMCG</title>
-  <style>
-    :root{
-      --azul-escuro:#002147; --azul:#0055a5; --bg:#f8f9fc; --card:#ffffff; --texto:#333;
-    }
-    *{box-sizing:border-box}
-    body{margin:0; font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background:var(--bg); color:var(--texto)}
-    header{background:var(--azul-escuro); color:#fff; padding:14px 28px; display:flex; align-items:center; justify-content:space-between}
-    .brand{display:flex; align-items:center; gap:14px}
-    .brand img{height:56px}
-    nav a{color:#fff; text-decoration:none; font-weight:600; font-size:17px; padding:10px 14px; border-radius:8px; border:1px solid transparent}
-    nav a:hover{border-color:#fff}
-    .hero{padding:54px 20px; color:#fff; text-align:center; background:linear-gradient(135deg, #004080, #0059b3)}
-    .hero h1{margin:0 0 14px; font-size:2.2rem}
-    .hero p{margin:0 auto; max-width:900px; font-size:1.1rem; line-height:1.6}
-    .container{max-width:1100px; margin:34px auto; padding:0 20px}
-    .card{background:var(--card); border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.08); padding:24px; margin-bottom:24px}
-    h2{color:var(--azul-escuro); margin:0 0 14px}
-    .bullets{line-height:1.75}
-    .organograma{display:flex; flex-direction:column; gap:12px; align-items:center}
-    .organograma img{width:100%; max-width:1000px; border-radius:10px; border:1px solid #ddd; box-shadow:0 4px 10px rgba(0,0,0,.1)}
-    footer{margin-top:36px; background:var(--azul-escuro); color:#fff; text-align:center; padding:16px}
-    .hidden{display:none}
-    .login-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.5); display:flex; align-items:center; justify-content:center; z-index:9999}
-    .login-card{background:#fff; width:min(420px, 92vw); border-radius:12px; padding:20px; box-shadow:0 10px 30px rgba(0,0,0,.2)}
-    .login-card h3{margin:0 0 10px}
-    .login-card input{width:100%; padding:10px 12px; font-size:16px; border:1px solid #ccc; border-radius:8px}
-    .login-card button{margin-top:12px; width:100%; padding:10px 12px; font-weight:700; border:0; border-radius:8px; background:var(--azul); color:#fff; cursor:pointer}
-    .login-card small{display:block; margin-top:8px; color:#666}
-  </style>
-  <script>
-    (function(){
-      const KEY = "dgmcg_aut";
-      const PASS = "dgmcg@2025";
-
-      // util: ler parâmetro ?next=...
-      function getNextFromQuery(){
-        const usp = new URLSearchParams(location.search);
-        const next = usp.get("next");
-        // segurança básica: só permitir arquivos locais (sem http/https)
-        if (next && !/^https?:/i.test(next)) return next;
-        return null;
-      }
-
-      // se já está autenticado e tem ?next=..., redireciona direto
-      document.addEventListener("DOMContentLoaded", () => {
-        const aut = sessionStorage.getItem(KEY);
-        const next = getNextFromQuery();
-        if (aut === PASS && next) {
-          location.href = next;
-        }
-      });
-
-      // Handler do login (sem prompt feio, com modal bonitinho)
-      window.handleLogin = function(){
-        const input = document.getElementById("pwd");
-        const error = document.getElementById("err");
-        if (input.value === PASS){
-          sessionStorage.setItem(KEY, PASS);
-          const next = (new URLSearchParams(location.search)).get("next");
-          document.getElementById("login").classList.add("hidden");
-          // vai para a next, se houver; senão só mostra a home
-          if (next && !/^https?:/i.test(next)) location.href = next;
-        } else {
-          error.textContent = "Senha incorreta. Tente novamente.";
-          input.focus();
-          input.select();
-        }
-      }
-
-      // Logout opcional (linkar em algum lugar do header se quiser)
-      window.logout = function(){
-        sessionStorage.removeItem(KEY);
-        location.href = "index.html";
-      }
-    })();
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal DGMCG</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fc;
+      color: #333;
+    }
+    header {
+      background-color: #002147;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+    }
+    header img {
+      max-height: 60px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #004080, #0059b3);
+      color: white;
+    }
+    .hero h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.2em;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .content {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    .content h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #002147;
+    }
+    .content p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+    .organograma img {
+      max-width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    }
+    footer {
+      background-color: #002147;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
-  <!-- Modal de Login (só exibe se não autenticado) -->
-  <div id="login" class="login-backdrop">
-    <div class="login-card">
-      <h3>Acesso ao Portal DGMCG</h3>
-      <p>Insira a senha para continuar.</p>
-      <input id="pwd" type="password" placeholder="Senha" onkeydown="if(event.key==='Enter') handleLogin()"/>
-      <button onclick="handleLogin()">Entrar</button>
-      <small id="err"></small>
-    </div>
-  </div>
 
-  <header>
-    <div class="brand">
-      <img src="assets/logo-dgmcg.png" alt="Logo DGMCG"/>
-      <strong>DGMCG</strong>
-    </div>
-    <nav>
-      <a href="escalex.html">Escalex</a>
-      <a href="dashboards.html">Dashboards</a>
-      <!-- <a href="javascript:logout()">Sair</a> -->
-    </nav>
-  </header>
+  <header>
+    <img src="LOGO DGMCG.png" alt="Logo DGMCG">
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="escalex.html">Escalex</a>
+      <a href="dashboards.html">Dashboards</a>
+    </nav>
+  </header>
 
-  <section class="hero">
-    <h1>Diretoria Geral de Monitoramento dos Contratos de Gestão</h1>
-    <p>
-      A DGMCG acompanha, avalia e monitora a execução dos Contratos de Gestão, assegurando conformidade legal,
-      qualidade dos serviços e integridade do erário, com governança e decisões orientadas por dados.
-    </p>
-  </section>
+  <section class="hero">
+    <h1>Diretoria Geral de Monitoramento dos Contratos de Gestão</h1>
+    <p>
+      A DGMCG é responsável pelo acompanhamento, fiscalização e monitoramento da execução dos Contratos de Gestão firmados pela Secretaria Estadual de Saúde de Pernambuco,
+      garantindo transparência, eficiência e qualidade na aplicação dos recursos públicos e na prestação dos serviços de saúde à população.
+    </p>
+  </section>
 
-  <main class="container">
-    <section class="card">
-      <h2>Atribuições Centrais</h2>
-      <div class="bullets">
-        • Planejar e coordenar a gestão contratual.<br/>
-        • Zelar pela eficácia e eficiência do gasto público e ordenar despesas.<br/>
-        • Modelar metas/indicadores; instruir seleção de OSS, repactuações e reequilíbrios.<br/>
-        • Acompanhar qualificação/requalificação de OSS e adotar medidas administrativas.<br/>
-      </div>
-    </section>
+  <section class="content">
+    <h2>Nosso Papel</h2>
+    <p>
+      Atuamos no monitoramento sistemático das Organizações Sociais de Saúde (OSS), com foco em assegurar que as metas assistenciais e administrativas sejam cumpridas,
+      promovendo qualidade, segurança do paciente e eficiência na gestão hospitalar. A DGMCG desempenha papel estratégico na integração entre a gestão pública e as unidades
+      de saúde, fortalecendo a governança e a tomada de decisão baseada em dados.
+    </p>
 
-    <section class="card">
-      <h2>Estrutura e Funções</h2>
-      <div class="bullets">
-        Jurídico • Assessoria Técnica • Articulação • Monitoramento (avaliação, informação, integridade/risco, patrimônio) •
-        Processos (modelagem técnica e manual) • Custos • Administrativa Orçamentária •
-        Termos de Referência • Articulação com GFCG para fiscalização e correções.
-      </div>
-    </section>
+    <div class="organograma">
+      <h2>Organograma DGMCG</h2>
+      <img src="Organograma DGMCG (sem nomes).png" alt="Organograma da DGMCG">
+    </div>
+  </section>
 
-    <section class="card organograma">
-      <h2>Organograma DGMCG</h2>
-      <img src="assets/organograma-dgmcg.png" alt="Organograma DGMCG"/>
-    </section>
-  </main>
+  <footer>
+    <p>&copy; 2025 - Diretoria Geral de Monitoramento dos Contratos de Gestão (DGMCG)</p>
+  </footer>
 
-  <footer>&copy; 2025 — Diretoria Geral de Monitoramento dos Contratos de Gestão (DGMCG)</footer>
-
-  <script>
-    // Oculta o modal de login se já houver sessão válida
-    (function(){
-      const KEY="dgmcg_aut", PASS="dgmcg@2025";
-      if (sessionStorage.getItem(KEY) === PASS){
-        document.getElementById("login").classList.add("hidden");
-      }
-    })();
-  </script>
 </body>
 </html>
