@@ -16,46 +16,37 @@
       min-height: 100vh;
     }
     header {
-       width: 100%;
+      width: 100%;
       background: #002147; /* Azul escuro */
       color: white;
-      text-align: center;
-      padding: 15px 0;
+      padding: 15px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-left: 20px;
-      padding-right: 20px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
     }
     header img {
       height: 60px;
     }
-      header h1 {
+    header h1 {
       margin: 0;
       font-size: 1.5em;
     }
     nav {
-      margin: 20px;
       display: flex;
-      gap: 10px;
+      gap: 20px;
     }
-    nav button {
-      background: #0078d7;
-      border: none;
+    nav a {
       color: white;
-      padding: 12px 24px;
-      margin: 10px;
-      border-radius: 8px;
+      text-decoration: none;
       font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background-color: #0078d7;
+      transition: background-color 0.3s;
     }
-    nav button:hover {
-      background: #005a9e;
+    nav a:hover {
+      background-color: #005a9e;
     }
     .iframe-container {
       position: relative;
@@ -79,38 +70,43 @@
       display: block;
     }
   </style>
-   <script>
-    // Solicita senha ao carregar a página
-    document.addEventListener("DOMContentLoaded", function () {
-      const senhaCorreta = "dgmcg@2025";
-      let senha = prompt("Digite a senha para acessar o Portal DGMCG:");
-      if (senha !== senhaCorreta) {
-        alert("Senha incorreta! Acesso negado.");
-        window.location.href = "https://dgmcg.github.io/dgmcg-site/"; // Redireciona caso a senha esteja errada
-      }
-    });
-     
-     // Função para mostrar o iframe ativo
+  <script>
+    // Solicita senha ao carregar a página
+    document.addEventListener("DOMContentLoaded", function () {
+      const senhaCorreta = "dgmcg@2025";
+      let senha = prompt("Digite a senha para acessar o Portal DGMCG:");
+      if (senha !== senhaCorreta) {
+        alert("Senha incorreta! Acesso negado.");
+        window.location.href = "https://dgmcg.github.io/dgmcg-site/"; // Redireciona caso a senha esteja errada
+      }
+    });
+
+    // Função para mostrar o iframe ativo
     function showFrame(id) {
       document.querySelectorAll('.iframe-container').forEach(div => {
         div.classList.remove('active');
       });
       document.getElementById(id).classList.add('active');
     }
-  </script>
+  </script>
 </head>
 <body>
   <header>
-    <img src="escalex.png" alt="Logo Escalex">
-    <h1>Escalex - Monitoramento</h1>
+    <img src="DGMCG.png" alt="Logo DGMCG">
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="escalex.html">Escalex</a>
+      <a href="dashboards.html">Dashboards</a>
+    </nav>
   </header>
 
+  <!-- Navegação entre iframes -->
   <nav>
     <button onclick="showFrame('dashboard')">Dashboard</button>
     <button onclick="showFrame('relatorio')">Relatório</button>
   </nav>
 
-  <!-- Power BI -->
+  <!-- Power BI - Dashboard -->
   <div id="dashboard" class="iframe-container active">
     <iframe title="Escalex" 
       src="https://app.powerbi.com/view?r=eyJrIjoiMmQ1MmYwY2MtZmZhNS00N2ZjLWEwYjctZjhjODczMWUwN2QwIiwidCI6IjQ4YWFmOTY3LTE3MjAtNDY2ZC04M2Y0LTJiOTAxOWRhNTg0ZiJ9" 
@@ -118,7 +114,7 @@
     </iframe>
   </div>
 
-  <!-- Gamma -->
+  <!-- Gamma - Relatório -->
   <div id="relatorio" class="iframe-container">
     <iframe src="https://gamma.app/embed/a7gddjnv9dldb34" 
       style="width: 100%; height: 100%;" 
@@ -127,13 +123,5 @@
     </iframe>
   </div>
 
-  <script>
-    function showFrame(id) {
-      document.querySelectorAll('.iframe-container').forEach(div => {
-        div.classList.remove('active');
-      });
-      document.getElementById(id).classList.add('active');
-    }
-  </script>
 </body>
 </html>
