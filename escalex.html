@@ -16,17 +16,32 @@
       min-height: 100vh;
     }
     header {
-      width: 100%;
-      background: #004080;
+       width: 100%;
+      background: #002147; /* Azul escuro */
       color: white;
       text-align: center;
       padding: 15px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 20px;
+      padding-right: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
     }
     header img {
       height: 60px;
     }
+      header h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
     nav {
       margin: 20px;
+      display: flex;
+      gap: 10px;
     }
     nav button {
       background: #0078d7;
@@ -48,6 +63,7 @@
       max-width: 1200px;
       padding-top: 56.25%; /* Proporção 16:9 */
       display: none;
+      margin-top: 120px; /* Garante que o conteúdo não sobreponha o cabeçalho */
     }
     .iframe-container iframe {
       position: absolute;
@@ -70,9 +86,17 @@
       let senha = prompt("Digite a senha para acessar o Portal DGMCG:");
       if (senha !== senhaCorreta) {
         alert("Senha incorreta! Acesso negado.");
-        window.location.href = "https://www.google.com"; // Redireciona caso a senha esteja errada
+        window.location.href = "https://dgmcg.github.io/dgmcg-site/"; // Redireciona caso a senha esteja errada
       }
     });
+     
+     // Função para mostrar o iframe ativo
+    function showFrame(id) {
+      document.querySelectorAll('.iframe-container').forEach(div => {
+        div.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+    }
   </script>
 </head>
 <body>
