@@ -1,120 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal DGMCG</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f8f9fc;
-      color: #333;
-    }
-    header {
-      background-color: #002147;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 40px;
-    }
-    header img {
-      max-height: 60px;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    .hero {
-      text-align: center;
-      padding: 50px 20px;
-      background: linear-gradient(135deg, #004080, #0059b3);
-      color: white;
-    }
-    .hero h1 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
-    }
-    .hero p {
-      font-size: 1.2em;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .content {
-      max-width: 1000px;
-      margin: 50px auto;
-      padding: 20px;
-      text-align: center;
-    }
-    .content h2 {
-      font-size: 2em;
-      margin-bottom: 20px;
-      color: #002147;
-    }
-    .content p {
-      font-size: 1.1em;
-      line-height: 1.6;
-      margin-bottom: 40px;
-    }
-    .organograma img {
-      max-width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-    }
-    footer {
-      background-color: #002147;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 40px;
-    }
-  </style>
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal DGMCG</title>
+  <style>
+    :root{
+      --azul-escuro:#002147;
+      --azul:#0059b3;
+      --bg:#f8f9fc;
+      --texto:#333;
+      --card:#fff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:var(--bg);
+      color:var(--texto);
+    }
+    header{
+      background:var(--azul-escuro);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:15px 40px;
+    }
+    header img{max-height:60px}
+    nav a{
+      color:#fff;
+      text-decoration:none;
+      margin-left:20px;
+      font-size:18px;
+      font-weight:600;
+      padding:6px 10px;
+      border-radius:8px;
+      border:1px solid transparent;
+    }
+    nav a:hover{border-color:#fff}
+    .hero{
+      text-align:center;
+      padding:50px 20px;
+      background:linear-gradient(135deg,#004080,var(--azul));
+      color:#fff;
+    }
+    .hero h1{font-size:2.2rem; margin:0 0 14px}
+    .hero p{font-size:1.1rem; max-width:900px; margin:0 auto}
+    .container{max-width:1100px; margin:40px auto; padding:0 20px}
+    .card{
+      background:var(--card);
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(0,0,0,.08);
+      padding:24px;
+      margin-bottom:24px;
+      text-align:center;
+    }
+    h2{color:var(--azul-escuro); margin:0 0 14px}
+    .bullets{line-height:1.75; text-align:left}
+    .organograma img{
+      width:100%;
+      max-width:1000px;
+      border-radius:10px;
+      border:1px solid #ddd;
+      box-shadow:0 4px 10px rgba(0,0,0,.1);
+    }
+    footer{
+      background:var(--azul-escuro);
+      color:#fff;
+      text-align:center;
+      padding:16px;
+      margin-top:36px;
+    }
+  </style>
 </head>
 <body>
 
-  <header>
-    <img src="LOGO DGMCG.png" alt="Logo DGMCG">
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="escalex.html">Escalex</a>
-      <a href="dashboards.html">Dashboards</a>
-    </nav>
-  </header>
+  <header>
+    <img src="assets/logo dgmcg.png" alt="Logo DGMCG" />
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="escalex.html">Escalex</a>
+      <a href="dashboards.html">Dashboards</a>
+    </nav>
+  </header>
 
-  <section class="hero">
-    <h1>Diretoria Geral de Monitoramento dos Contratos de Gestão</h1>
-    <p>
-      A DGMCG é responsável pelo acompanhamento, fiscalização e monitoramento da execução dos Contratos de Gestão firmados pela Secretaria Estadual de Saúde de Pernambuco,
-      garantindo transparência, eficiência e qualidade na aplicação dos recursos públicos e na prestação dos serviços de saúde à população.
-    </p>
-  </section>
+  <section class="hero">
+    <h1>Diretoria Geral de Monitoramento dos Contratos de Gestão</h1>
+    <p>
+      A DGMCG é responsável pelo acompanhamento, fiscalização e monitoramento da execução dos Contratos de Gestão firmados pela
+      Secretaria Estadual de Saúde de Pernambuco, garantindo transparência, eficiência e qualidade na aplicação dos recursos
+      públicos e na prestação dos serviços de saúde à população.
+    </p>
+  </section>
 
-  <section class="content">
-    <h2>Nosso Papel</h2>
-    <p>
-      Atuamos no monitoramento sistemático das Organizações Sociais de Saúde (OSS), com foco em assegurar que as metas assistenciais e administrativas sejam cumpridas,
-      promovendo qualidade, segurança do paciente e eficiência na gestão hospitalar. A DGMCG desempenha papel estratégico na integração entre a gestão pública e as unidades
-      de saúde, fortalecendo a governança e a tomada de decisão baseada em dados.
-    </p>
+  <main class="container">
+    <section class="card">
+      <h2>Nosso Papel</h2>
+      <p>
+        Atuamos no monitoramento sistemático das Organizações Sociais de Saúde (OSS), assegurando o alcance das metas assistenciais
+        e administrativas, promovendo qualidade, segurança do paciente e eficiência. Fortalecemos a governança e a tomada de decisão
+        baseada em dados.
+      </p>
+    </section>
 
-    <div class="organograma">
-      <h2>Organograma DGMCG</h2>
-      <img src="Organograma DGMCG (sem nomes).png" alt="Organograma da DGMCG">
-    </div>
-  </section>
+    <section class="card">
+      <h2>Atribuições Centrais</h2>
+      <div class="bullets">
+        • Planejar e coordenar a gestão contratual;<br/>
+        • Zelar pela eficácia/eficiência do gasto público e ordenar despesas;<br/>
+        • Modelar metas e indicadores; instruir seleção de OSS, repactuações e reequilíbrios;<br/>
+        • Acompanhar qualificação/requalificação de OSS e adotar medidas administrativas.
+      </div>
+    </section>
 
-  <footer>
-    <p>&copy; 2025 - Diretoria Geral de Monitoramento dos Contratos de Gestão (DGMCG)</p>
-  </footer>
+    <section class="card">
+      <h2>Organograma DGMCG</h2>
+      <div class="organograma">
+        <img src="assets/organograma dgmcg (sem nomes).png" alt="Organograma DGMCG" />
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 — Diretoria Geral de Monitoramento dos Contratos de Gestão (DGMCG)
+  </footer>
 
 </body>
 </html>
