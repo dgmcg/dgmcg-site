@@ -51,7 +51,19 @@
       margin-top:36px; background:var(--azul-escuro); color:#fff; text-align:center; padding:16px;
     }
   </style>
-  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const senhaCorreta = "dgmcg@2025";
+      const tentativa = sessionStorage.getItem("dgmcg_aut") || prompt("Digite a senha para acessar o Portal DGMCG:");
+      if (tentativa !== senhaCorreta) {
+        alert("Senha incorreta! Acesso negado.");
+        document.body.innerHTML = "";
+        location.href = "https://www.google.com";
+      } else {
+        sessionStorage.setItem("dgmcg_aut", senhaCorreta);
+      }
+    });
+  </script>
 </head>
 <body>
   <header>
