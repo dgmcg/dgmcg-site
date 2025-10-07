@@ -5,62 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sistema de Gestão — DGMCG</title>
   <style>
-    :root{
-      --azul-escuro:#002147; --azul:#0055a5; --bg:#f8f9fc; --card:#fff; --texto:#333;
-    }
+    :root{ --azul-escuro:#002147; --azul:#0055a5; --bg:#f8f9fc; --card:#fff; --texto:#333; }
     *{box-sizing:border-box}
     body{margin:0; font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background:var(--bg); color:var(--texto)}
-    header{
-      background:var(--azul-escuro); color:#fff; padding:14px 28px;
-      display:flex; align-items:center; justify-content:space-between;
-    }
+    header{background:var(--azul-escuro); color:#fff; padding:14px 28px; display:flex; align-items:center; justify-content:space-between}
     .brand{display:flex; align-items:center; gap:14px}
     .brand img{height:56px}
-    nav a{
-      color:#fff; text-decoration:none; font-weight:600; font-size:17px;
-      padding:8px 12px; border-radius:8px; border:1px solid transparent;
-    }
+    nav a{color:#fff; text-decoration:none; font-weight:600; font-size:17px; padding:8px 12px; border-radius:8px; border:1px solid transparent}
     nav a:hover{border-color:#fff}
     .container{max-width:1200px; margin:32px auto; padding:0 20px}
     h1{color:var(--azul-escuro); text-align:center; margin:0 0 8px}
     .lead{max-width:900px; margin:0 auto 24px; text-align:center}
-    .apps{
-      display:grid; grid-template-columns:repeat(2, minmax(240px,1fr));
-      gap:20px; align-items:stretch;
-    }
-    .app-card{
-      background:var(--card); border-radius:14px; padding:20px;
-      box-shadow:0 10px 24px rgba(0,0,0,.08);
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      text-decoration:none; position:relative; outline:0;
-    }
-    .app-card img{
-      width:220px; max-width:70%; height:auto; display:block; margin:8px auto 14px;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,.15));
-    }
-    .app-card .label{
-      font-weight:800; color:var(--azul-escuro); letter-spacing:.5px;
-    }
-    /* tooltip */
-    .app-card[data-tooltip]:hover::after,
-    .app-card[data-tooltip]:focus::after{
-      content: attr(data-tooltip);
-      position:absolute; bottom:-8px; left:50%; transform:translate(-50%, 100%);
-      background:#0b2a4a; color:#fff; padding:8px 10px; border-radius:8px;
-      font-size:13px; white-space:normal; width:max(240px, 60%);
-      box-shadow:0 6px 20px rgba(0,0,0,.2); text-align:center;
+    .apps{display:grid; grid-template-columns:repeat(2, minmax(240px,1fr)); gap:20px; align-items:stretch}
+    .app-card{background:var(--card); border-radius:14px; padding:20px; box-shadow:0 10px 24px rgba(0,0,0,.08); display:flex; flex-direction:column; align-items:center; justify-content:center; text-decoration:none; position:relative; outline:0}
+    .app-card img{width:220px; max-width:70%; height:auto; display:block; margin:8px auto 14px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.15))}
+    .app-card .label{font-weight:800; color:var(--azul-escuro); letter-spacing:.5px}
+    .app-card[data-tooltip]:hover::after, .app-card[data-tooltip]:focus::after{
+      content: attr(data-tooltip); position:absolute; bottom:-8px; left:50%; transform:translate(-50%, 100%);
+      background:#0b2a4a; color:#fff; padding:8px 10px; border-radius:8px; font-size:13px; white-space:normal; width:max(240px, 60%);
+      box-shadow:0 6px 20px rgba(0,0,0,.2); text-align:center
     }
     .app-card:focus{box-shadow:0 0 0 3px rgba(0,85,165,.35)}
     @media (max-width:720px){ .apps{grid-template-columns:1fr} }
     footer{background:var(--azul-escuro); color:#fff; text-align:center; padding:16px; margin-top:36px}
   </style>
 
-  <!-- Guard opcional: exige senha antes de abrir esta página -->
+  <!-- Guard: exige senha (usa localStorage para persistir entre abas) -->
   <script>
     (function(){
       const KEY="dgmcg_aut", PASS="dgmcg@2025";
       try{
-        const ok = sessionStorage.getItem(KEY) === PASS;
+        const ok = localStorage.getItem(KEY) === PASS;
         if(!ok){
           const path = location.pathname.split("/").pop() || "index.html";
           const qs = location.search ? encodeURIComponent(location.search) : "";
@@ -73,6 +48,7 @@
 <body>
   <header>
     <div class="brand">
+      <!-- imagem na raiz do repo -->
       <img src="DGMCG.png" alt="Logo DGMCG"/>
       <strong>DGMCG — Sistema de Gestão</strong>
     </div>
@@ -80,16 +56,13 @@
       <a href="index.html">Início</a>
       <a href="escalex.html">Escalex</a>
       <a href="dashboards.html">Dashboards</a>
-      <a href="sistema_de_gestao.html">Sistema de Gestão</a>
+      <a href="sistema-de-gestao.html">Sistema de Gestão</a>
     </nav>
   </header>
 
   <main class="container">
     <h1>Sistema de Gestão</h1>
-    <p class="lead">
-      Acesse os aplicativos de apoio à gestão dos Contratos de Gestão.
-      Passe o mouse sobre cada botão para ver a descrição.
-    </p>
+    <p class="lead">Acesse os aplicativos de apoio à gestão dos Contratos de Gestão. Passe o mouse sobre cada botão para ver a descrição.</p>
 
     <section class="apps">
       <!-- GGPCG -->
