@@ -126,8 +126,8 @@
     &copy; 2025 — Diretoria Geral de Monitoramento dos Contratos de Gestão (DGMCG)
   </footer>
 
-<!-- Degeminho NotebookLM -->
-<div id="degeminho" style="position:fixed; bottom:20px; right:20px; width:300px; height:40px; background:#004080; color:white; border-radius:12px 12px 0 0; box-shadow:0 4px 12px rgba(0,0,0,0.3); font-family:sans-serif; z-index:1000;">
+<!-- Degeminho NotebookLM (pop-up) -->
+<div id="degeminho" style="position:fixed; bottom:20px; right:20px; width:200px; height:40px; background:#004080; color:white; border-radius:12px 12px 0 0; box-shadow:0 4px 12px rgba(0,0,0,0.3); font-family:sans-serif; z-index:1000;">
   <div style="display:flex; justify-content:space-between; align-items:center; padding:5px 10px; cursor:pointer;">
     <span>Degeminho</span>
     <div>
@@ -136,60 +136,66 @@
       <button id="fullBtn" style="background:#0059b3; color:white; border:none; padding:3px 6px; border-radius:4px; cursor:pointer;">⤢</button>
     </div>
   </div>
-  <div id="degeminhoContent" style="display:none; width:100%; height:calc(50vh - 40px);">
-    <iframe src="https://notebooklm.google.com/notebook/e3569581-4f89-4fad-bb4c-b6ffd4d9ad48"
-            title="NotebookLM"
-            style="width:100%; height:100%; border:none; border-radius:0 0 12px 12px;"
-            allowfullscreen>
-    </iframe>
-  </div>
 </div>
 
 <script>
   const degeminho = document.getElementById("degeminho");
-  const content = document.getElementById("degeminhoContent");
   const minimizeBtn = document.getElementById("minimizeBtn");
   const halfBtn = document.getElementById("halfBtn");
   const fullBtn = document.getElementById("fullBtn");
+  const notebookURL = "https://notebooklm.google.com/notebook/e3569581-4f89-4fad-bb4c-b6ffd4d9ad48";
 
-  // Inicial: minimizado
-  content.style.display = "none";
-  degeminho.style.height = "40px";
-  degeminho.style.width = "300px";
+  let popUpWindow = null;
 
-  // Minimizar
+  // Minimizar: apenas fecha pop-up se estiver aberto
   minimizeBtn.onclick = () => {
-    content.style.display = "none";
-    degeminho.style.height = "40px";
-    degeminho.style.width = "300px";
-  }
-
-  // Metade da tela
-  halfBtn.onclick = () => {
-    content.style.display = "block";
-    degeminho.style.width = "50vw";
-    degeminho.style.height = "50vh";
-  }
-
-  // Tela cheia
-  fullBtn.onclick = () => {
-    content.style.display = "block";
-    degeminho.style.width = "100vw";
-    degeminho.style.height = "100vh";
-  }
-
-  // Clique na barra abre ou fecha se estiver minimizado
-  degeminho.querySelector("span").onclick = () => {
-    if(content.style.display === "none"){
-      content.style.display = "block";
-      degeminho.style.height = "50vh";
-    } else {
-      content.style.display = "none";
-      degeminho.style.height = "40px";
-      degeminho.style.width = "300px";
+    if(popUpWindow && !popUpWindow.closed){
+      popUpWindow.close();
     }
+    degeminho.style.width = "200px";
+    degeminho.style.height = "40px";
+  }
+
+  // Abrir metade da tela
+  halfBtn.onclick = () => {
+    if(popUpWindow && !popUpWindow.closed){
+      popUpWindow.focus();
+    } else {
+      const width = window.innerWidth / 2;
+      const height = window.innerHeight / 2;
+      popUpWindow = window.open(notebookURL, "Degeminho", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+    }
+    degeminho.style.width = "300px";
+    degeminho.style.height = "60px";
+  }
+
+  // Abrir tela cheia
+  fullBtn.onclick = () => {
+    if(popUpWindow && !popUpWindow.closed){
+      popUpWindow.focus();
+      popUpWindow.resizeTo(screen.width, screen.height);
+      popUpWindow.moveTo(0,0);
+    } else {
+      popUpWindow = window.open(notebookURL, "Degeminho", `width=${screen.width},height=${screen.height},resizable=yes,scrollbars=yes`);
+    }
+    degeminho.style.width = "300px";
+    degeminho.style.height = "60px";
+  }
+
+  // Clique no título também abre metade da tela
+  degeminho.querySelector("span").onclick = () => {
+    if(!popUpWindow || popUpWindow.closed){
+      const width = window.innerWidth / 2;
+      const height = window.innerHeight / 2;
+      popUpWindow = window.open(notebookURL, "Degeminho", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+    } else {
+      popUpWindow.focus();
+    }
+    degeminho.style.width = "300px";
+    degeminho.style.height = "60px";
   }
 </script>
+
 
   
 </body>
