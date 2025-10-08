@@ -65,9 +65,10 @@
 
   <main class="container">
     <div class="tabs">
+      <button id="btn-informacoes" onclick="show('Informações das Unidades')">Informações das Unidades</button>
       <button id="btn-transparencia" onclick="show('transparencia')">Evolução da Transparência</button>
-      <button id="btn-tas" onclick="show('tas')">Evolução dos Contratos de Gestão (T.A's)</button>
-      <button id="btn-producao" onclick="show('producao')">Produção Hospitalar</button>
+      <button id="btn-tas" onclick="show('tas')">Termos Aditivos Formalizados</button>
+      <button id="btn-producao" onclick="show('producao')">Produção das Unidades</button>
       <button id="btn-especialidades" onclick="show('especialidades')">Especialidades Hospitalares</button>
     </div>
 
@@ -80,8 +81,8 @@
       </div>
     </section>
 
-     <!-- Informações das Unidade -->
-    <section id="pane-tas" class="pane" style="display:none">
+     <!-- Informações das Unidades -->
+    <section id="pane-informacoes" class="pane" style="display:none">
       <div class="iframe-wrap">
         <iframe title="Informações das Unidades" 
           width="600" height="373.5" 
