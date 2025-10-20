@@ -27,6 +27,75 @@
       border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.08); overflow:hidden
     }
     iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+
+    /* Estilo do botão */
+.popup-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.popup-button .gif-avatar {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    transition: opacity 0.3s ease;
+}
+
+/* Torna o GIF estático até passar o mouse */
+.popup-button:hover .gif-avatar {
+    opacity: 1;
+}
+
+/* Pop-up Modal */
+.popup-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo da Caixa do Modal */
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 50%;
+    max-width: 400px;
+}
+
+.close-button {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
   </style>
   <script>
     function show(tab){
@@ -70,7 +139,25 @@
       <button id="btn-tas" onclick="show('tas')">Termos Aditivos Formalizados</button>
       <button id="btn-producao" onclick="show('producao')">Produção das Unidades</button>
       <button id="btn-especialidades" onclick="show('especialidades')">Especialidades Hospitalares</button>
+     
     </div>
+     <!-- Botão João Virtual -->
+<button class="popup-button" id="joaoButton">
+    <img src="jov.gif" alt="Avatar João Virtual" class="gif-avatar">
+    <p>Pesquise tudo sobre as unidades</p>
+</button>
+
+<!-- Pop-up Modal -->
+<div id="popupModal" class="popup-modal">
+    <div class="popup-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <h2>João Virtual</h2>
+        <p>Clique no botão abaixo para acessar o conteúdo:</p>
+        <a href="https://notebooklm.google.com/notebook/e69f64d0-9b16-432f-a091-ef76de628995" target="_blank">
+            <button>Ir para João Virtual</button>
+        </a>
+    </div>
+</div>    
 
     <!-- Transparência -->
     <section id="pane-transparencia" class="pane">
@@ -118,5 +205,28 @@
       </div>
     </section>
   </main>
+  <script>
+  // Elementos do pop-up e do botão
+var modal = document.getElementById("popupModal");
+var btn = document.getElementById("joaoButton");
+var span = document.getElementById("closeModal");
+
+// Quando o usuário clicar no botão, abre o pop-up
+btn.onclick = function() {
+    modal.style.display = "flex";
+}
+
+// Quando o usuário clicar no "x", fecha o pop-up
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Quando o usuário clicar fora do pop-up, também fecha o modal
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 </body>
 </html>
