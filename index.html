@@ -174,36 +174,113 @@
     &copy; 2025 — Diretoria Geral de Monitoramento dos Contratos de Gestão (DGMCG)
   </footer>
 
-<!-- Degeminho NotebookLM (pop-up tela cheia) -->
-<div id="degeminho" 
-     style="position:fixed; bottom:20px; right:20px; width:250px; height:auto; background:#004080; color:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.3); font-family:sans-serif; z-index:1000; padding:8px;">
-  <div style="cursor:pointer; text-align:center;">
-    <span style="font-weight:bold; font-size:16px;">Degeminho</span><br>
-    <span style="font-size:12px; font-weight:normal; color:#cce0ff;">
-      seu assistente virtual para tirar dúvidas sobre a lei das OSS
-    </span>
-  </div>
-  <div style="text-align:center; margin-top:8px;">
-    <button id="fullBtn" 
-            style="background:#0059b3; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-weight:bold;">
-      Abrir Chat
-    </button>
+<!-- 🌐 DEGEMINHO BOTÃO FLUTUANTE -->
+<style>
+  /* container flutuante */
+  #degeminho-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  /* botão principal */
+  #degeminho-btn {
+    background-color: #002147;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+  #degeminho-btn:hover {
+    background-color: #004080;
+    transform: scale(1.03);
+  }
+
+  /* texto pequeno abaixo do nome */
+  #degeminho-btn small {
+    display: block;
+    font-size: 10px;
+    line-height: 10px;
+    color: #aad4ff;
+  }
+
+  /* menu de opções */
+  #degeminho-menu {
+    display: none;
+    flex-direction: column;
+    margin-top: 8px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    overflow: hidden;
+  }
+
+  #degeminho-menu button {
+    background: white;
+    border: none;
+    padding: 10px 16px;
+    width: 180px;
+    text-align: right;
+    cursor: pointer;
+    color: #002147;
+    font-weight: 600;
+    transition: background 0.2s ease;
+  }
+
+  #degeminho-menu button:hover {
+    background: #f0f4ff;
+  }
+</style>
+
+<div id="degeminho-container">
+  <button id="degeminho-btn" onclick="toggleDegeminhoMenu()">
+    💬 Degeminho
+    <small>seu assistente virtual sobre a Lei das OSS</small>
+  </button>
+
+  <div id="degeminho-menu">
+    <button onclick="abrirDegeminho('publico')">Degeminho - Público</button>
+    <button onclick="abrirDegeminho('servidor')">Degeminho - Servidor</button>
   </div>
 </div>
 
 <script>
-  const fullBtn = document.getElementById("fullBtn");
-  const notebookURL = "https://notebooklm.google.com/notebook/e3569581-4f89-4fad-bb4c-b6ffd4d9ad48";
-
-  fullBtn.onclick = () => {
-    // Abrir NotebookLM em tela cheia (nova janela)
-    window.open(
-      notebookURL, 
-      "Degeminho", 
-      `width=${screen.width},height=${screen.height},top=0,left=0,resizable=yes,scrollbars=yes`
-    );
+  // Alternar exibição do menu
+  function toggleDegeminhoMenu() {
+    const menu = document.getElementById('degeminho-menu');
+    menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
   }
+
+  // Abrir links em nova aba
+  function abrirDegeminho(tipo) {
+    if (tipo === 'publico') {
+      window.open('https://notebooklm.google.com/notebook/e3569581-4f89-4fad-bb4c-b6ffd4d9ad48', '_blank');
+    } else if (tipo === 'servidor') {
+      window.open('https://notebooklm.google.com/notebook/e69f64d0-9b16-432f-a091-ef76de628995', '_blank');
+    }
+    document.getElementById('degeminho-menu').style.display = 'none';
+  }
+
+  // Fechar menu ao clicar fora
+  document.addEventListener('click', (e) => {
+    const container = document.getElementById('degeminho-container');
+    if (!container.contains(e.target)) {
+      document.getElementById('degeminho-menu').style.display = 'none';
+    }
+  });
 </script>
+
 
 
 
