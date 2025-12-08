@@ -29,7 +29,7 @@
 
     // 🔹 NORMALIZAR E-MAIL PARA CONSULTA NO BANCO
     function normalizeEmail(email) {
-      return email.replace(/\./g, "_").replace(/@/g, "_");
+      return email.replace(/[.@]/g, "_");
     }
 
     // 🔹 VERIFICAR SE O USUÁRIO ESTÁ LOGADO E AUTORIZADO
@@ -39,21 +39,33 @@
         window.location.href = "login.html";
         return;
       }
+      
+// Garantir que o conteúdo só apareça após validar permissão
+    document.body.style.display = "none";
 
-      const emailNormalizado = normalizeEmail(user.email);
-      const userRef = ref(db, "allowed_users/" + emailNormalizado);
+    const emailKey = normalizeEmail(user.email);
+    const usuarioPermitido = ref(db, "allowed_users/" + emailKey);
 
-      const snapshot = await get(userRef);
+    try {
+      const snapshot = await get(usuarioPermitido);
 
+// Se não existe OU não é boolean true → bloquear
       if (!snapshot.exists() || snapshot.val() !== true) {
-        alert("Seu e-mail não possui permissão para acessar esta página.");
+        alert("Você não tem permissão para acessar esta página.");
         window.location.href = "index.html";
+        return;
       }
 
-      // Se chegou aqui, está autorizado!
-    });
+// Se for autorizado → liberar a página
+      document.body.style.display = "block";
 
-  </script>
+    } catch (e) {
+      console.error("Erro ao verificar permissão:", e);
+      alert("Erro ao verificar sua permissão.");
+      window.location.href = "index.html";
+    }
+  });
+</script>
 
 <!-- ======= ESTILOS DA PÁGINA MANTIDOS ======= -->
   
