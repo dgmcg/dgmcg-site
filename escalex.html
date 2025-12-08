@@ -4,6 +4,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Escalex - Monitoramento</title>
+
+   <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+
+    // 🔹 CONFIGURAÇÃO DO FIREBASE
+    const firebaseConfig = {
+      apiKey: "AIzaSyDx9oVgxNFos7c6qz8viLrAOHzTw26oNPc",
+      authDomain: "portal-dgmcg.firebaseapp.com",
+      projectId: "portal-dgmcg",
+      storageBucket: "portal-dgmcg.firebasestorage.app",
+      messagingSenderId: "455592059546",
+      appId: "1:455592059546:web:9c0a6308ebc3bc836e7523",
+      databaseURL: "https://portal-dgmcg-default-rtdb.firebaseio.com" 
+    };
+
+    // 🔹 INICIALIZA FIREBASE
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    // 🔹 NORMALIZAR E-MAIL PARA CONSULTA NO BANCO
+    function normalizeEmail(email) {
+      return email.replace(/\./g, "_").replace(/@/g, "_");
+    }
+
+    // 🔹 VERIFICAR SE O USUÁRIO ESTÁ LOGADO E AUTORIZADO
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        alert("Você precisa estar logado para acessar este conteúdo.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      const emailNormalizado = normalizeEmail(user.email);
+      const userRef = ref(db, "allowed_users/" + emailNormalizado);
+
+      const snapshot = await get(userRef);
+
+      if (!snapshot.exists() || snapshot.val() !== true) {
+        alert("Seu e-mail não possui permissão para acessar esta página.");
+        window.location.href = "index.html";
+      }
+
+      // Se chegou aqui, está autorizado!
+    });
+
+  </script>
+
+<!-- ======= ESTILOS DA PÁGINA MANTIDOS ======= -->
+  
   <style>
     body {
       margin: 0;
@@ -71,16 +124,6 @@
     }
   </style>
   <script>
-    // Solicita senha ao carregar a página
-    document.addEventListener("DOMContentLoaded", function () {
-      const senhaCorreta = "dgmcg@2025";
-      let senha = prompt("Digite a senha para acessar o Portal DGMCG:");
-      if (senha !== senhaCorreta) {
-        alert("Senha incorreta! Acesso negado.");
-        window.location.href = "https://dgmcg.github.io/dgmcg-site/"; // Redireciona caso a senha esteja errada
-      }
-    });
-
     // Função para mostrar o iframe ativo
     function showFrame(id) {
       document.querySelectorAll('.iframe-container').forEach(div => {
