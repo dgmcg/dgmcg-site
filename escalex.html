@@ -29,7 +29,7 @@
 
     // 🔹 NORMALIZAR E-MAIL PARA CONSULTA NO BANCO
     function normalizeEmail(email) {
-      return email.replace(/[.@]/g, "_");
+  return email.toLowerCase().replace(/\./g, "_").replace(/@/g, "_");
     }
 
     // 🔹 VERIFICAR SE O USUÁRIO ESTÁ LOGADO E AUTORIZADO
