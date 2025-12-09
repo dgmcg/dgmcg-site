@@ -391,6 +391,13 @@
   };
 </script>
 
+<script>
+  // Permite que outras páginas solicitem abrir o popup de login DGMCG
+  window.addEventListener("abrirLoginDGMCG", () => {
+    console.log("🔓 Abrindo popup de login via evento externo...");
+    document.getElementById("popup-overlay").style.display = "flex";
+  });
+</script>
 
   
 </body>
