@@ -406,6 +406,14 @@
   });
 </script>
 
+  <script>
+  // Detecta query string ?login=1 e abre o pop-up automaticamente
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("login") === "1") {
+    console.log("🔓 Abrindo pop-up automaticamente por solicitação externa.");
+    setTimeout(() => abrirPopup(), 300); // pequena espera para garantir carregamento
+  }
+</script>
   
 </body>
 </html>
