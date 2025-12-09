@@ -43,7 +43,7 @@
 
     if (escolha) {
     // 👉 abre o popup de login DGMCG
-    window.dispatchEvent(new Event("abrirLoginDGMCG"));
+    window.location.href = "index.html?login=1";
   } else {
     window.location.href = "index.html";
   }
