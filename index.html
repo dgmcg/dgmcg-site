@@ -179,120 +179,8 @@
   <footer>
     &copy; 2025 — Diretoria Geral de Monitoramento dos Contratos de Gestão (DGMCG)
   </footer>
-
-<!-- 🔒 POP-UP DE LOGIN GOOGLE -->
-<div id="popup-overlay" style="
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.5);
-  backdrop-filter: blur(4px);
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-">
-  <div id="popup-login" style="
-    background:white;
-    border-radius:12px;
-    box-shadow:0 8px 24px rgba(0,0,0,0.3);
-    padding:40px 30px;
-    text-align:center;
-    max-width:400px;
-    width:90%;
-    position:relative;
-  ">
-    <button onclick="fecharPopup()" style="
-      position:absolute;
-      top:10px; right:10px;
-      background:none; border:none; font-size:20px;
-      cursor:pointer; color:#666;
-    ">&times;</button>
-
-    <h2 style="color:#002147; margin-bottom:20px;">Login DGMCG</h2>
-    <p style="color:#333; font-size:15px; margin-bottom:20px;">
-      Acesse com sua conta Google institucional.
-    </p>
-
-    <button onclick="loginGoogle()" style="
-      background-color:#4285F4;
-      color:white;
-      border:none;
-      padding:14px 22px;
-      font-size:16px;
-      border-radius:8px;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      width:100%;
-    ">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="22" alt="Google Logo">
-      Entrar com Google
-    </button>
-  </div>
-</div>
-
-<!-- 🔹 BOTÃO FIXO PARA ABRIR O LOGIN -->
-<button onclick="abrirPopup()" style="
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background-color:#002147;
-  color:white;
-  border:none;
-  border-radius:50px;
-  padding:12px 20px;
-  font-size:16px;
-  cursor:pointer;
-  box-shadow:0 4px 12px rgba(0,0,0,0.3);
-  z-index:9998;
-">
-  🔐 Login DGMCG
-</button>
-
-<!-- 🔥 SCRIPT FIREBASE LOGIN -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDx9oVgxNFos7c6qz8viLrAOHzTw26oNPc",
-    authDomain: "portal-dgmcg.firebaseapp.com",
-    projectId: "portal-dgmcg",
-    storageBucket: "portal-dgmcg.firebasestorage.app",
-    messagingSenderId: "455592059546",
-    appId: "1:455592059546:web:9c0a6308ebc3bc836e7523"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  // login Google
-  window.loginGoogle = function() {
-    signInWithPopup(auth, provider)
-      .then(() => {
-        alert("Login realizado com sucesso!");
-        fecharPopup();
-        window.location.href = "escalex.html"; // destino após login
-      })
-      .catch(err => {
-        alert("Erro ao fazer login: " + err.message);
-      });
-  };
-
-  // abrir e fechar popup
-  window.abrirPopup = function() {
-    document.getElementById("popup-overlay").style.display = "flex";
-  };
-  window.fecharPopup = function() {
-    document.getElementById("popup-overlay").style.display = "none";
-  };
-</script>
   
-<!-- 🌐 DEGEMINHO BOTÃO FLUTUANTE -->
+<!-- 🌐 DEGEMINHO BOTÃO FLUTUANTE + LOGIN GOOGLE -->
 <style>
   /* container flutuante */
   #degeminho-container {
@@ -359,8 +247,58 @@
   #degeminho-menu button:hover {
     background: #f0f4ff;
   }
+/* pop-up */
+  #popup-overlay {
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+  }
+
+  #popup-login {
+    background:white;
+    border-radius:12px;
+    padding:40px 30px;
+    max-width:400px;
+    width:90%;
+    text-align:center;
+    position:relative;
+    box-shadow:0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  #popup-login button.close-btn {
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-size:22px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    color:#555;
+  }
+
+  #google-login-btn {
+    background:#4285F4;
+    color:white;
+    border:none;
+    padding:14px 20px;
+    width:100%;
+    border-radius:8px;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    cursor:pointer;
+  }
 </style>
 
+<!-- BOTÃO FLUTUANTE -->
 <div id="degeminho-container">
   <button id="degeminho-btn" onclick="toggleDegeminhoMenu()">
     💬 Degeminho
@@ -370,9 +308,25 @@
   <div id="degeminho-menu">
     <button onclick="abrirDegeminho('publico')">Degeminho - Público</button>
     <button onclick="abrirDegeminho('servidor')">Degeminho - Servidor</button>
+    <button onclick="abrirPopup()">Login DGMCG</button>
   </div>
 </div>
 
+<!-- POP-UP DE LOGIN -->
+<div id="popup-overlay">
+  <div id="popup-login">
+    <button class="close-btn" onclick="fecharPopup()">×</button>
+
+    <h2 style="color:#002147; margin-bottom:20px;">Login DGMCG</h2>
+
+    <button id="google-login-btn" onclick="loginGoogle()">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="22">
+      Entrar com Google
+    </button>
+  </div>
+</div>  
+
+<!-- ========== SCRIPTS DO DEGEMINHO + LOGIN ========== -->  
 <script>
   // Alternar exibição do menu
   function toggleDegeminhoMenu() {
@@ -389,7 +343,14 @@
     }
     document.getElementById('degeminho-menu').style.display = 'none';
   }
-
+ // pop-up
+  function abrirPopup(){
+    document.getElementById("popup-overlay").style.display = "flex";
+  }
+  function fecharPopup(){
+    document.getElementById("popup-overlay").style.display = "none";
+  }
+  
   // Fechar menu ao clicar fora
   document.addEventListener('click', (e) => {
     const container = document.getElementById('degeminho-container');
@@ -399,7 +360,36 @@
   });
 </script>
 
+<!-- ========== 🔥 FIREBASE AUTENTICAÇÃO ========== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyDx9oVgxNFos7c6qz8viLrAOHzTw26oNPc",
+    authDomain: "portal-dgmcg.firebaseapp.com",
+    projectId: "portal-dgmcg",
+    storageBucket: "portal-dgmcg.firebasestorage.app",
+    messagingSenderId: "455592059546",
+    appId: "1:455592059546:web:9c0a6308ebc3bc836e7523"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  window.loginGoogle = function() {
+    signInWithPopup(auth, provider)
+      .then(() => {
+        alert("Login realizado com sucesso!");
+        fecharPopup();
+        window.location.reload();
+      })
+      .catch(err => {
+        alert("Erro ao fazer login: " + err.message);
+      });
+  };
+</script>
 
 
   
