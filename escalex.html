@@ -44,10 +44,20 @@
       body.style.display = "none"; // mantém oculto até validar
 
       const emailKey = normalizeEmail(user.email);
+       
+      /* 🔍 LOGS DE DIAGNÓSTICO */
+      console.log("=== TESTE DE AUTENTICAÇÃO ===");
+      console.log("Usuário logado:", user.email);
+      console.log("Chave normalizada:", emailKey);
+      
       const usuarioRef = ref(db, "allowed_users/" + emailKey);
 
       try {
         const snap = await get(usuarioRef);
+
+        /* 🔍 LOG: O QUE O FIREBASE RETORNOU? */
+        console.log("Snapshot existe?:", snap.exists());
+        console.log("Valor retornado:", snap.val());
 
         if (!snap.exists() || snap.val() !== true) {
           alert("Seu acesso não está autorizado para esta página.");
