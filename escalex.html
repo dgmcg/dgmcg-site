@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Escalex - Monitoramento</title>
 
-   <!-- Firebase SDK -->
+  <!-- 🔐 Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
     import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
-    // 🔹 CONFIGURAÇÃO DO FIREBASE
+    /* 🔹 CONFIGURAÇÃO FIREBASE */
     const firebaseConfig = {
       apiKey: "AIzaSyDx9oVgxNFos7c6qz8viLrAOHzTw26oNPc",
       authDomain: "portal-dgmcg.firebaseapp.com",
@@ -19,124 +19,124 @@
       storageBucket: "portal-dgmcg.firebasestorage.app",
       messagingSenderId: "455592059546",
       appId: "1:455592059546:web:9c0a6308ebc3bc836e7523",
-      databaseURL: "https://portal-dgmcg-default-rtdb.firebaseio.com" 
+      databaseURL: "https://portal-dgmcg-default-rtdb.firebaseio.com"
     };
 
-    // 🔹 INICIALIZA FIREBASE
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    // 🔹 NORMALIZAR E-MAIL PARA CONSULTA NO BANCO
+    /* 🔹 Normaliza e-mails para uso como chave */
     function normalizeEmail(email) {
-  return email.toLowerCase().replace(/\./g, "_").replace(/@/g, "_");
+      return email.toLowerCase().replace(/\./g, "_").replace(/@/g, "_");
     }
 
-    // 🔹 VERIFICAR SE O USUÁRIO ESTÁ LOGADO E AUTORIZADO
+    /* 🔐 VERIFICA AUTENTICAÇÃO E PERMISSÃO */
     onAuthStateChanged(auth, async (user) => {
+
       if (!user) {
-        alert("Você precisa estar logado para acessar este conteúdo.");
-        window.location.href = "login.html";
-        return;
-      }
-      
-// Garantir que o conteúdo só apareça após validar permissão
-    document.body.style.display = "none";
-
-    const emailKey = normalizeEmail(user.email);
-    const usuarioPermitido = ref(db, "allowed_users/" + emailKey);
-
-    try {
-      const snapshot = await get(usuarioPermitido);
-
-// Se não existe OU não é boolean true → bloquear
-      if (!snapshot.exists() || snapshot.val() !== true) {
-        alert("Você não tem permissão para acessar esta página.");
+        alert("Você precisa estar logado para acessar o Escalex.");
         window.location.href = "index.html";
         return;
       }
 
-// Se for autorizado → liberar a página
-      document.body.style.display = "block";
+      const body = document.body;
+      body.style.display = "none"; // mantém oculto até validar
 
-    } catch (e) {
-      console.error("Erro ao verificar permissão:", e);
-      alert("Erro ao verificar sua permissão.");
-      window.location.href = "index.html";
-    }
-  });
-</script>
+      const emailKey = normalizeEmail(user.email);
+      const usuarioRef = ref(db, "allowed_users/" + emailKey);
 
-<!-- ======= ESTILOS DA PÁGINA MANTIDOS ======= -->
-  
+      try {
+        const snap = await get(usuarioRef);
+
+        if (!snap.exists() || snap.val() !== true) {
+          alert("Seu acesso não está autorizado para esta página.");
+          window.location.href = "index.html";
+          return;
+        }
+
+        // autorizado
+        body.style.display = "block";
+
+      } catch (err) {
+        console.error("Erro ao consultar permissão:", err);
+        alert("Erro ao verificar permissão de acesso.");
+        window.location.href = "index.html";
+      }
+    });
+  </script>
+
+  <!-- 🔹 ESTILIZAÇÃO -->
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f4f6f9;
-      display: flex;
+      display: none; /* 👈 PARA EVITAR FLICKER ANTES DA VALIDAÇÃO */
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
       min-height: 100vh;
     }
     header {
       width: 100%;
-      background: #002147; /* Azul escuro */
+      background: #002147;
       color: white;
       padding: 15px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
     }
-    header img {
-      height: 60px;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 1.5em;
-    }
-    nav {
-      display: flex;
-      gap: 20px;
-    }
+    header img { height: 60px; }
+
     nav a {
       color: white;
       text-decoration: none;
-      font-size: 16px;
       font-weight: 600;
-      padding: 10px 20px;
+      padding: 10px 18px;
       border-radius: 8px;
       background-color: #0078d7;
-      transition: background-color 0.3s;
+      margin-left: 10px;
     }
-    nav a:hover {
-      background-color: #005a9e;
-    }
+    nav a:hover { background-color: #005a9e; }
+
     .iframe-container {
       position: relative;
       width: 90%;
       max-width: 1200px;
-      padding-top: 56.25%; /* Proporção 16:9 */
+      padding-top: 56.25%;
       display: none;
-      margin-top: 120px; /* Garante que o conteúdo não sobreponha o cabeçalho */
+      margin-top: 120px;
     }
     .iframe-container iframe {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       border: none;
       border-radius: 8px;
       box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
     }
-    .active {
-      display: block;
+    .active { display: block; }
+
+    .switch-nav {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+    }
+    .switch-nav button {
+      padding: 12px 22px;
+      border: none;
+      background: #002147;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .switch-nav button:hover {
+      background: #004080;
     }
   </style>
+
   <script>
-    // Função para mostrar o iframe ativo
     function showFrame(id) {
       document.querySelectorAll('.iframe-container').forEach(div => {
         div.classList.remove('active');
@@ -145,6 +145,7 @@
     }
   </script>
 </head>
+
 <body>
   <header>
     <img src="DGMCG.png" alt="Logo DGMCG">
@@ -152,31 +153,28 @@
       <a href="index.html">Início</a>
       <a href="escalex.html">Escalex</a>
       <a href="dashboards.html">Dashboards</a>
-      <a href="sistema-de-gestao.html">Sistema de Gestão</a>
+      <a href="sistema_de_gestao.html">Sistema de Gestão</a>
     </nav>
   </header>
 
-  <!-- Navegação entre iframes -->
-  <nav>
+  <!-- Botões para alternar entre telas -->
+  <div class="switch-nav">
     <button onclick="showFrame('dashboard')">Dashboard</button>
     <button onclick="showFrame('relatorio')">Relatório</button>
-  </nav>
-
-  <!-- Power BI - Dashboard -->
-  <div id="dashboard" class="iframe-container active">
-    <iframe title="Escalex" 
-      src="https://app.powerbi.com/view?r=eyJrIjoiMmQ1MmYwY2MtZmZhNS00N2ZjLWEwYjctZjhjODczMWUwN2QwIiwidCI6IjQ4YWFmOTY3LTE3MjAtNDY2ZC04M2Y0LTJiOTAxOWRhNTg0ZiJ9" 
-      allowFullScreen="true">
-    </iframe>
   </div>
 
-  <!-- Gamma - Relatório -->
+  <!-- Power BI -->
+  <div id="dashboard" class="iframe-container active">
+    <iframe title="Escalex"
+      src="https://app.powerbi.com/view?r=eyJrIjoiMmQ1MmYwY2MtZmZhNS00N2ZjLWEwYjctZjhjODczMWUwN2QwIiwidCI6IjQ4YWFmOTY3LTE3MjAtNDY2ZC04M2Y0LTJiOTAxOWRhNTg0ZiJ9"
+      allowFullScreen="true"></iframe>
+  </div>
+
+  <!-- Gamma -->
   <div id="relatorio" class="iframe-container">
-    <iframe src="https://gamma.app/embed/a7gddjnv9dldb34" 
-      style="width: 100%; height: 100%;" 
-      allow="fullscreen" 
-      title="Relatório de Monitoramento do Aplicativo Escalex">
-    </iframe>
+    <iframe src="https://gamma.app/embed/a7gddjnv9dldb34"
+      title="Relatório de Monitoramento Escalex"
+      allow="fullscreen"></iframe>
   </div>
 
 </body>
