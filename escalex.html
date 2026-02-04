@@ -35,18 +35,18 @@
     onAuthStateChanged(auth, async (user) => {
 
       if (!user) {
-         const escolha = confirm(
-    "⚠ Você precisa estar logado para acessar o Escalex.\n\n" +
-    "Clique em OK para fazer login com o DGMCG.\n" +
-    "Clique em Cancelar para voltar ao início."
-    );
+        const escolha = confirm(
+          "⚠ Você precisa estar logado para acessar o Escalex.\n\n" +
+          "Clique em OK para fazer login com o DGMCG.\n" +
+          "Clique em Cancelar para voltar ao início."
+        );
 
-    if (escolha) {
-    // 👉 abre o popup de login DGMCG
-    window.location.href = "index.html?login=1";
-  } else {
-    window.location.href = "index.html";
-  }
+        if (escolha) {
+          // 👉 abre o popup de login DGMCG
+          window.location.href = "index.html?login=1";
+        } else {
+          window.location.href = "index.html";
+        }
 
         return;
       }
@@ -55,12 +55,12 @@
       body.style.display = "none"; // mantém oculto até validar
 
       const emailKey = normalizeEmail(user.email);
-       
+
       /* 🔍 LOGS DE DIAGNÓSTICO */
       console.log("=== TESTE DE AUTENTICAÇÃO ===");
       console.log("Usuário logado:", user.email);
       console.log("Chave normalizada:", emailKey);
-      
+
       const usuarioRef = ref(db, "allowed_users/" + emailKey);
 
       try {
@@ -122,11 +122,10 @@
 
     .iframe-container {
       position: relative;
-      width: 90%;
-      max-width: 1200px;
-      padding-top: 56.25%;
-      display: none;
-      margin-top: 120px;
+      width: 100%;  /* Preenche toda a tela */
+      padding-top: 56.25%;  /* Proporção 16:9 */
+      display: block;  /* Faz com que o iframe seja exibido */
+      margin-top: 120px; /* Ajuste para que o conteúdo não sobreponha o cabeçalho */
     }
     .iframe-container iframe {
       position: absolute;
@@ -136,35 +135,15 @@
       border-radius: 8px;
       box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
     }
-    .active { display: block; }
-
-    .switch-nav {
-      margin-top: 20px;
-      display: flex;
-      gap: 15px;
-    }
-    .switch-nav button {
-      padding: 12px 22px;
-      border: none;
+    footer {
       background: #002147;
       color: white;
-      font-size: 15px;
-      cursor: pointer;
-      border-radius: 6px;
-    }
-    .switch-nav button:hover {
-      background: #004080;
+      text-align: center;
+      padding: 16px;
+      margin-top: 36px;
     }
   </style>
 
-  <script>
-    function showFrame(id) {
-      document.querySelectorAll('.iframe-container').forEach(div => {
-        div.classList.remove('active');
-      });
-      document.getElementById(id).classList.add('active');
-    }
-  </script>
 </head>
 
 <body>
@@ -174,26 +153,16 @@
       <a href="index.html">Início</a>
       <a href="escalex.html">Escalex</a>
       <a href="dashboards.html">Dashboards</a>
-      <a href="sistema_de_gestao.html">Sistema de Gestão</a>
+      <a href="sistema-de-gestao.html">Sistema de Gestão</a>
     </nav>
   </header>
 
-  <!-- Botões para alternar entre telas -->
-  <div class="switch-nav">
-    <button onclick="showFrame('dashboard')">Dashboard</button>
-    <button onclick="showFrame('relatorio')">Relatório</button>
-  </div>
-
-  <!-- Power BI -->
-  <div id="dashboard" class="iframe-container active">
-    <iframe title="Escalex V2" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNmM0N2MyYTgtNGI0Yi00MDEwLThhYzQtYjUyNjEwMTM1ZmZkIiwidCI6IjQ4YWFmOTY3LTE3MjAtNDY2ZC04M2Y0LTJiOTAxOWRhNTg0ZiJ9" frameborder="0" allowFullScreen="true"></iframe>
-  </div>
-
-  <!-- Gamma -->
-  <div id="relatorio" class="iframe-container">
-    <iframe src="https://gamma.app/embed/a7gddjnv9dldb34"
-      title="Relatório de Monitoramento Escalex"
-      allow="fullscreen"></iframe>
+  <!-- Power BI - Dashboard -->
+  <div id="dashboard" class="iframe-container">
+    <iframe title="Escalex"
+      src="https://app.powerbi.com/view?r=eyJrIjoiNmM0N2MyYTgtNGI0Yi00MDEwLThhYzQtYjUyNjEwMTM1ZmZkIiwidCI6IjQ4YWFmOTY3LTE3MjAtNDY2ZC04M2Y0LTJiOTAxOWRhNTg0ZiJ9"
+      allowFullScreen="true">
+    </iframe>
   </div>
 
 </body>
