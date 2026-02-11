@@ -85,15 +85,6 @@
         window.location.href = "index.html";
       }
     });
-    // Função de Logout
-  function logout() {
-    signOut(auth).then(() => {
-      // Redireciona para a página inicial após o logout
-      window.location.href = "index.html";
-    }).catch((error) => {
-      alert("Erro ao fazer logoff: " + error.message);
-    });
-  }
   </script>
 
   <!-- 🔹 ESTILIZAÇÃO -->
