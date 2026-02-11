@@ -95,4 +95,246 @@
 <body>
 
   <header>
-    <img src="DGMCG
+    <img src="DGMCG.png" alt="Logo DGMCG" />
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="escalex.html">Escalex</a>
+      <a href="dashboards.html">Dashboards</a>
+      <a href="sistema-de-gestao.html">Sistema de Gestão</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <!-- Botão singelo para redirecionamento -->
+    <a href="https://gamma.app/docs/VF-Indice-Global-de-Qualidade-UPAs-0ykv6titzhqv67r?mode=present#card-1s6rf7wqj86wk3t"
+       target="_blank"
+       class="botao-simples">
+      Apresentação IGQ UPAs
+    </a>
+    <!-- Botão singelo para redirecionamento -->
+    <a href="https://gamma.app/docs/Diretoria-Geral-de-Monitoramento-dos-Contratos-de-Gestao-oyab577vczsp91z?mode=present#card-dsy4ly1bw26syn8"
+       target="_blank"
+       class="botao-simples">
+      Apresentação DGMCG
+    </a>
+    
+    <h1>Diretoria Geral de Monitoramento dos Contratos de Gestão</h1>
+    <p>
+      A DGMCG é responsável pelo acompanhamento, fiscalização e monitoramento da execução dos Contratos de Gestão firmados pela
+      Secretaria Estadual de Saúde de Pernambuco, garantindo transparência, eficiência e qualidade na aplicação dos recursos
+      públicos e na prestação dos serviços de saúde à população.
+    </p>
+  </section>
+
+  <main class="container">
+    <section class="card">
+      <h2>Nosso Papel</h2>
+      <p>
+        Atuamos no monitoramento sistemático das Organizações Sociais de Saúde (OSS), assegurando o alcance das metas assistenciais
+        e administrativas, promovendo qualidade, segurança do paciente e eficiência. Fortalecemos a governança e a tomada de decisão
+        baseada em dados.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Atribuições Centrais</h2>
+      <div class="bullets">
+        • Planejar e coordenar a gestão contratual;<br/>
+        • Zelar pela eficácia/eficiência do gasto público e ordenar despesas;<br/>
+        • Modelar metas e indicadores; instruir seleção de OSS, repactuações e reequilíbrios;<br/>
+        • Acompanhar qualificação/requalificação de OSS e adotar medidas administrativas.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Organograma DGMCG</h2>
+      <div class="organograma">
+        <img src="ORGDGMCG.png" alt="Organograma DGMCG" />
+      </div>
+      <div class="organograma">
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 — Diretoria Geral de Monitoramento dos Contratos de Gestão (DGMCG)
+  </footer>
+  
+  <!-- 🌐 DEGEMINHO BOTÃO FLUTUANTE + LOGIN GOOGLE -->
+  <style>
+    /* container flutuante */
+    #degeminho-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    /* botão principal */
+    #degeminho-btn {
+      background-color: #002147;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    #degeminho-btn:hover {
+      background-color: #004080;
+      transform: scale(1.03);
+    }
+
+    /* texto pequeno abaixo do nome */
+    #degeminho-btn small {
+      display: block;
+      font-size: 10px;
+      line-height: 10px;
+      color: #aad4ff;
+    }
+
+    /* menu de opções */
+    #degeminho-menu {
+      display: none;
+      flex-direction: column;
+      margin-top: 8px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+
+    #degeminho-menu button {
+      background: white;
+      border: none;
+      padding: 10px 16px;
+      width: 180px;
+      text-align: right;
+      cursor: pointer;
+      color: #002147;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+
+    #degeminho-menu button:hover {
+      background: #f0f4ff;
+    }
+
+  </style>
+
+  <!-- BOTÃO FLUTUANTE -->
+  <div id="degeminho-container">
+    <button id="degeminho-btn" onclick="toggleDegeminhoMenu()">
+      💬 Degeminho
+      <small>seu assistente virtual sobre a Lei das OSS</small>
+    </button>
+
+    <div id="degeminho-menu">
+      <button onclick="abrirDegeminho('publico')">Degeminho - Público</button>
+      <button onclick="abrirDegeminho('servidor')">Degeminho - Servidor</button>
+      <button onclick="abrirPopup()">Login DGMCG</button>
+      <button onclick="logout()">Logoff</button> <!-- Novo botão de Logout -->
+    </div>
+  </div>
+
+  <!-- POP-UP DE LOGIN -->
+  <div id="popup-overlay">
+    <div id="popup-login">
+      <button class="close-btn" onclick="fecharPopup()">×</button>
+
+      <h2 style="color:#002147; margin-bottom:20px;">Login DGMCG</h2>
+
+      <button id="google-login-btn" onclick="loginGoogle()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="22">
+        Entrar com Google
+      </button>
+    </div>
+  </div>  
+
+  <!-- ========== SCRIPTS DO DEGEMINHO + LOGIN ========== -->  
+  <script>
+    // Alternar exibição do menu
+    function toggleDegeminhoMenu() {
+      const menu = document.getElementById('degeminho-menu');
+      menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    // Abrir links em nova aba
+    function abrirDegeminho(tipo) {
+      if (tipo === 'publico') {
+        window.open('https://notebooklm.google.com/notebook/e3569581-4f89-4fad-bb4c-b6ffd4d9ad48', '_blank');
+      } else if (tipo === 'servidor') {
+        window.open('https://notebooklm.google.com/notebook/e69f64d0-9b16-432f-a091-ef76de628995', '_blank');
+      }
+      document.getElementById('degeminho-menu').style.display = 'none';
+    }
+    
+    // pop-up
+    function abrirPopup(){
+      document.getElementById("popup-overlay").style.display = "flex";
+    }
+    function fecharPopup(){
+      document.getElementById("popup-overlay").style.display = "none";
+    }
+
+    // Fechar menu ao clicar fora
+    document.addEventListener('click', (e) => {
+      const container = document.getElementById('degeminho-container');
+      if (!container.contains(e.target)) {
+        document.getElementById('degeminho-menu').style.display = 'none';
+      }
+    });
+  </script>
+
+  <!-- ========== 🔥 FIREBASE AUTENTICAÇÃO ========== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDx9oVgxNFos7c6qz8viLrAOHzTw26oNPc",
+      authDomain: "portal-dgmcg.firebaseapp.com",
+      projectId: "portal-dgmcg",
+      storageBucket: "portal-dgmcg.firebasestorage.app",
+      messagingSenderId: "455592059546",
+      appId: "1:455592059546:web:9c0a6308ebc3bc836e7523"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    window.loginGoogle = function() {
+      signInWithPopup(auth, provider)
+        .then(() => {
+          alert("Login realizado com sucesso!");
+          fecharPopup();
+          window.location.reload();
+        })
+        .catch(err => {
+          alert("Erro ao fazer login: " + err.message);
+        });
+    };
+
+    window.logout = function() {
+      signOut(auth)
+        .then(() => {
+          alert("Logout realizado com sucesso!");
+          window.location.href = "index.html";
+        })
+        .catch(err => {
+          alert("Erro ao fazer logout: " + err.message);
+        });
+    };
+  </script>
+
+</body>
+</html>
