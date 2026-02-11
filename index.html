@@ -364,7 +364,7 @@
 <!-- ========== 🔥 FIREBASE AUTENTICAÇÃO ========== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyDx9oVgxNFos7c6qz8viLrAOHzTw26oNPc",
@@ -394,9 +394,10 @@
   window.logout = function() {
     signOut(auth).then(() => {
       alert("Logout realizado com sucesso!");
-      window.location.reload(); // Redireciona após o logout
+      window.location.href = "index.html"; // Redireciona após o logout
     }).catch((error) => {
       console.error("Erro ao fazer logoff: ", error.message);
+      alert("Erro ao fazer logoff: " + error.message);
     });
   };
 </script>
