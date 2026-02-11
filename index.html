@@ -5,180 +5,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portal DGMCG</title>
   <style>
-    :root {
-      --azul-escuro: #002147;
-      --azul: #0059b3;
-      --bg: #f8f9fc;
-      --texto: #333;
-      --card: #fff;
+    :root{
+      --azul-escuro:#002147;
+      --azul:#0059b3;
+      --bg:#f8f9fc;
+      --texto:#333;
+      --card:#fff;
     }
-
-    * {
-      box-sizing: border-box;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:var(--bg);
+      color:var(--texto);
     }
-
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--bg);
-      color: var(--texto);
+    header{
+      background:var(--azul-escuro);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:15px 40px;
     }
-
-    header {
-      background: var(--azul-escuro);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 40px;
+    header img{max-height:60px}
+    nav a{
+      color:#fff;
+      text-decoration:none;
+      margin-left:20px;
+      font-size:18px;
+      font-weight:600;
+      padding:6px 10px;
+      border-radius:8px;
+      border:1px solid transparent;
     }
-
-    header img {
-      max-height: 60px;
+    nav a:hover{border-color:#fff}
+    .hero{
+      text-align:center;
+      padding:50px 20px;
+      background:linear-gradient(135deg,#004080,var(--azul));
+      color:#fff;
     }
+    .hero h1{font-size:2.2rem; margin:0 0 14px}
+    .hero p{font-size:1.1rem; max-width:900px; margin:0 auto}
 
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 18px;
-      font-weight: 600;
-      padding: 6px 10px;
-      border-radius: 8px;
-      border: 1px solid transparent;
+.botao-simples {
+  display: inline-block;
+  background: #ffffff;
+  color: #004080;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  margin-bottom: 12px;
+}
+.botao-simples:hover {
+  background: #cce0ff;
+  color: #002147;
+}
+    
+    .container{max-width:1100px; margin:40px auto; padding:0 20px}
+    .card{
+      background:var(--card);
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(0,0,0,.08);
+      padding:24px;
+      margin-bottom:24px;
+      text-align:center;
     }
-
-    nav a:hover {
-      border-color: #fff;
+    h2{color:var(--azul-escuro); margin:0 0 14px}
+    .bullets{line-height:1.75; text-align:left}
+    .organograma img{
+      width:100%;
+      max-width:1000px;
+      border-radius:10px;
+      border:1px solid #ddd;
+      box-shadow:0 4px 10px rgba(0,0,0,.1);
     }
-
-    .hero {
-      text-align: center;
-      padding: 50px 20px;
-      background: linear-gradient(135deg, #004080, var(--azul));
-      color: #fff;
-    }
-
-    .hero h1 {
-      font-size: 2.2rem;
-      margin: 0 0 14px;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .botao-simples {
-      display: inline-block;
-      background: #ffffff;
-      color: #004080;
-      font-weight: 600;
-      font-size: 0.95rem;
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      margin-bottom: 12px;
-    }
-
-    .botao-simples:hover {
-      background: #cce0ff;
-      color: #002147;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-      padding: 24px;
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    h2 {
-      color: var(--azul-escuro);
-      margin: 0 0 14px;
-    }
-
-    .bullets {
-      line-height: 1.75;
-      text-align: left;
-    }
-
-    .organograma img {
-      width: 100%;
-      max-width: 1000px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    footer {
-      background: var(--azul-escuro);
-      color: #fff;
-      text-align: center;
-      padding: 16px;
-      margin-top: 36px;
-    }
-
-    /* Pop-up Login */
-    #popup-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(4px);
-      justify-content: center;
-      align-items: center;
-      z-index: 99999;
-    }
-
-    #popup-login {
-      background: white;
-      border-radius: 12px;
-      padding: 40px 30px;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    }
-
-    #popup-login button.close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 22px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #555;
-    }
-
-    #google-login-btn {
-      background: #4285F4;
-      color: white;
-      border: none;
-      padding: 14px 20px;
-      width: 100%;
-      border-radius: 8px;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      cursor: pointer;
+    footer{
+      background:var(--azul-escuro);
+      color:#fff;
+      text-align:center;
+      padding:16px;
+      margin-top:36px;
     }
   </style>
 </head>
@@ -195,6 +105,19 @@
   </header>
 
   <section class="hero">
+<!-- Botão singelo para redirecionamento -->
+  <a href="https://gamma.app/docs/VF-Indice-Global-de-Qualidade-UPAs-0ykv6titzhqv67r?mode=present#card-1s6rf7wqj86wk3t"
+     target="_blank"
+     class="botao-simples">
+    Apresentação IGQ UPAs
+  </a>
+    <!-- Botão singelo para redirecionamento -->
+  <a href="https://gamma.app/docs/Diretoria-Geral-de-Monitoramento-dos-Contratos-de-Gestao-oyab577vczsp91z?mode=present#card-dsy4ly1bw26syn8"
+     target="_blank"
+     class="botao-simples">
+    Apresentação DGMCG
+  </a>
+    
     <h1>Diretoria Geral de Monitoramento dos Contratos de Gestão</h1>
     <p>
       A DGMCG é responsável pelo acompanhamento, fiscalização e monitoramento da execução dos Contratos de Gestão firmados pela
@@ -216,9 +139,9 @@
     <section class="card">
       <h2>Atribuições Centrais</h2>
       <div class="bullets">
-        • Planejar e coordenar a gestão contratual;<br />
-        • Zelar pela eficácia/eficiência do gasto público e ordenar despesas;<br />
-        • Modelar metas e indicadores; instruir seleção de OSS, repactuações e reequilíbrios;<br />
+        • Planejar e coordenar a gestão contratual;<br/>
+        • Zelar pela eficácia/eficiência do gasto público e ordenar despesas;<br/>
+        • Modelar metas e indicadores; instruir seleção de OSS, repactuações e reequilíbrios;<br/>
         • Acompanhar qualificação/requalificação de OSS e adotar medidas administrativas.
       </div>
     </section>
@@ -228,63 +151,272 @@
       <div class="organograma">
         <img src="ORGDGMCG.png" alt="Organograma DGMCG" />
       </div>
+      <div class="organograma">
+  
+</div>
+<section style="background-color:#f8f9fc; padding:20px 0;">
+<!-- 👇 INCORPORAÇÃO DO CANVA -->
+<div style="position: relative; width: 100%; height: 0; padding-top: 56.25%;
+ box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+  <iframe loading="lazy"
+    style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+    src="https://www.canva.com/design/DAGx-gdPJ6I/Bsbsu-FCKvjs0pOWONFgPA/watch?embed"
+    allowfullscreen="allowfullscreen" allow="fullscreen">
+  </iframe>
+</div>
+
+<p style="text-align:center; margin-top:0.5em;">
+  <a href="https://www.canva.com/design/DAGx-gdPJ6I/Bsbsu-FCKvjs0pOWONFgPA/watch?utm_content=DAGx-gdPJ6I&utm_campaign=designshare&utm_medium=embeds&utm_source=link"
+     target="_blank" rel="noopener"
+     style="color:#004080; font-weight:bold; text-decoration:none;">
+  </a>
+</p>
+
     </section>
   </main>
 
   <footer>
     &copy; 2025 — Diretoria Geral de Monitoramento dos Contratos de Gestão (DGMCG)
   </footer>
+  
+<!-- 🌐 DEGEMINHO BOTÃO FLUTUANTE + LOGIN GOOGLE -->
+<style>
+  /* container flutuante */
+  #degeminho-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
 
-  <!-- POP-UP DE LOGIN -->
-  <div id="popup-overlay">
-    <div id="popup-login">
-      <button class="close-btn" onclick="fecharPopup()">×</button>
-      <h2 style="color:#002147; margin-bottom:20px;">Login DGMCG</h2>
-      <button id="google-login-btn" onclick="loginGoogle()">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="22">
-        Entrar com Google
-      </button>
-    </div>
+  /* botão principal */
+  #degeminho-btn {
+    background-color: #002147;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+  #degeminho-btn:hover {
+    background-color: #004080;
+    transform: scale(1.03);
+  }
+
+  /* texto pequeno abaixo do nome */
+  #degeminho-btn small {
+    display: block;
+    font-size: 10px;
+    line-height: 10px;
+    color: #aad4ff;
+  }
+
+  /* menu de opções */
+  #degeminho-menu {
+    display: none;
+    flex-direction: column;
+    margin-top: 8px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    overflow: hidden;
+  }
+
+  #degeminho-menu button {
+    background: white;
+    border: none;
+    padding: 10px 16px;
+    width: 180px;
+    text-align: right;
+    cursor: pointer;
+    color: #002147;
+    font-weight: 600;
+    transition: background 0.2s ease;
+  }
+
+  #degeminho-menu button:hover {
+    background: #f0f4ff;
+  }
+/* pop-up */
+  #popup-overlay {
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+  }
+
+  #popup-login {
+    background:white;
+    border-radius:12px;
+    padding:40px 30px;
+    max-width:400px;
+    width:90%;
+    text-align:center;
+    position:relative;
+    box-shadow:0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  #popup-login button.close-btn {
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-size:22px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    color:#555;
+  }
+
+  #google-login-btn {
+    background:#4285F4;
+    color:white;
+    border:none;
+    padding:14px 20px;
+    width:100%;
+    border-radius:8px;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    cursor:pointer;
+  }
+</style>
+
+<!-- BOTÃO FLUTUANTE -->
+<div id="degeminho-container">
+  <button id="degeminho-btn" onclick="toggleDegeminhoMenu()">
+    💬 Degeminho
+    <small>seu assistente virtual sobre a Lei das OSS</small>
+  </button>
+
+  <div id="degeminho-menu">
+    <button onclick="abrirDegeminho('publico')">Degeminho - Público</button>
+    <button onclick="abrirDegeminho('servidor')">Degeminho - Servidor</button>
+    <button onclick="abrirPopup()">Login DGMCG</button>
+     <button onclick="abrirDegeminho('Gerencial')">ClickUp — Gerencial</button>
   </div>
+</div>
 
-  <!-- ========== SCRIPTS DO LOGIN + POP-UP ========== -->
+<!-- POP-UP DE LOGIN -->
+<div id="popup-overlay">
+  <div id="popup-login">
+    <button class="close-btn" onclick="fecharPopup()">×</button>
+
+    <h2 style="color:#002147; margin-bottom:20px;">Login DGMCG</h2>
+
+    <button id="google-login-btn" onclick="loginGoogle()">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="22">
+      Entrar com Google
+    </button>
+  </div>
+</div>  
+
+<!-- ========== SCRIPTS DO DEGEMINHO + LOGIN ========== -->  
+<script>
+  // Alternar exibição do menu
+  function toggleDegeminhoMenu() {
+    const menu = document.getElementById('degeminho-menu');
+    menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+  }
+
+  // Abrir links em nova aba
+  function abrirDegeminho(tipo) {
+    if (tipo === 'publico') {
+      window.open('https://notebooklm.google.com/notebook/e3569581-4f89-4fad-bb4c-b6ffd4d9ad48', '_blank');
+    } else if (tipo === 'servidor') {
+      window.open('https://notebooklm.google.com/notebook/e69f64d0-9b16-432f-a091-ef76de628995', '_blank');
+    } else if (tipo === 'Gerencial') {
+    window.open('https://app.clickup.com/90131110356/v/db/2ky3q6em-933', '_blank');
+  }
+    document.getElementById('degeminho-menu').style.display = 'none';
+  }
+ // pop-up
+  function abrirPopup(){
+    document.getElementById("popup-overlay").style.display = "flex";
+  }
+  function fecharPopup(){
+    document.getElementById("popup-overlay").style.display = "none";
+  }
+  
+  // Fechar menu ao clicar fora
+  document.addEventListener('click', (e) => {
+    const container = document.getElementById('degeminho-container');
+    if (!container.contains(e.target)) {
+      document.getElementById('degeminho-menu').style.display = 'none';
+    }
+  });
+</script>
+
+<!-- ========== 🔥 FIREBASE AUTENTICAÇÃO ========== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDx9oVgxNFos7c6qz8viLrAOHzTw26oNPc",
+    authDomain: "portal-dgmcg.firebaseapp.com",
+    projectId: "portal-dgmcg",
+    storageBucket: "portal-dgmcg.firebasestorage.app",
+    messagingSenderId: "455592059546",
+    appId: "1:455592059546:web:9c0a6308ebc3bc836e7523"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  window.loginGoogle = function() {
+    signInWithPopup(auth, provider)
+      .then(() => {
+        alert("Login realizado com sucesso!");
+        fecharPopup();
+        window.location.reload();
+      })
+      .catch(err => {
+        alert("Erro ao fazer login: " + err.message);
+      });
+  };
+</script>
+
+<script>
+  // Permite que outras páginas abram o Pop-up de Login DGMCG
+  window.addEventListener("abrirLoginDGMCG", () => {
+    console.log("🔓 Evento recebido: abrirLoginDGMCG");
+    const popup = document.getElementById("popup-overlay");
+
+    if (!popup) {
+      console.error("❌ popup-overlay NÃO encontrado!");
+      return;
+    }
+
+    popup.style.display = "flex";
+  });
+</script>
+
   <script>
-    // Abrir pop-up de login
-    function abrirPopup() {
-      document.getElementById("popup-overlay").style.display = "flex";
-    }
-
-    // Fechar pop-up de login
-    function fecharPopup() {
-      document.getElementById("popup-overlay").style.display = "none";
-    }
-
-    // Firebase Login Google
-    const firebaseConfig = {
-      apiKey: "AIzaSyDx9oVgxNFos7c6qz8viLrAOHzTw26oNPc",
-      authDomain: "portal-dgmcg.firebaseapp.com",
-      projectId: "portal-dgmcg",
-      storageBucket: "portal-dgmcg.firebasestorage.app",
-      messagingSenderId: "455592059546",
-      appId: "1:455592059546:web:9c0a6308ebc3bc836e7523"
-    };
-
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    window.loginGoogle = function() {
-      auth.signInWithPopup(provider)
-        .then(() => {
-          alert("Login realizado com sucesso!");
-          fecharPopup();
-          window.location.reload(); // Atualiza a página para refletir o login
-        })
-        .catch(err => {
-          alert("Erro ao fazer login: " + err.message);
-        });
-    };
-  </script>
-
+  // Detecta query string ?login=1 e abre o pop-up automaticamente
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("login") === "1") {
+    console.log("🔓 Abrindo pop-up automaticamente por solicitação externa.");
+    setTimeout(() => abrirPopup(), 300); // pequena espera para garantir carregamento
+  }
+</script>
+  
 </body>
 </html>
