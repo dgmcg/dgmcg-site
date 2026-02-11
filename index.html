@@ -309,6 +309,7 @@
     <button onclick="abrirDegeminho('publico')">Degeminho - Público</button>
     <button onclick="abrirDegeminho('servidor')">Degeminho - Servidor</button>
     <button onclick="abrirPopup()">Login DGMCG</button>
+    <button onclick="logout()">Logoff</button>
   </div>
 </div>
 
@@ -388,6 +389,15 @@
       .catch(err => {
         alert("Erro ao fazer login: " + err.message);
       });
+  };
+   // Função para logoff (signOut) do Firebase
+  window.logout = function() {
+    signOut(auth).then(() => {
+      alert("Logout realizado com sucesso!");
+      window.location.reload(); // Redireciona após o logout
+    }).catch((error) => {
+      console.error("Erro ao fazer logoff: ", error.message);
+    });
   };
 </script>
 
