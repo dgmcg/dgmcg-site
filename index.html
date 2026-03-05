@@ -90,6 +90,53 @@
       padding:16px;
       margin-top:36px;
     }
+    /* Estilo dos botões da lista suspensa */
+    .button-container {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+    .button-container button {
+      font-size: 2rem;
+      font-weight: bold;
+      background-color: #ffffff;
+      color: #004080;
+      padding: 10px;
+      width: 120px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .button-container button:hover {
+      background-color: #cce0ff;
+    }
+    
+    /* Estilo para as listas suspensas */
+    .info-list {
+      display: none;
+      margin-top: 20px;
+      background-color: #f0f4ff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .info-list ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .info-list li {
+      margin-bottom: 10px;
+    }
+
+    .info-list a {
+      color: #004080;
+      text-decoration: none;
+    }
+
+    .info-list a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -126,6 +173,38 @@
     </p>
   </section>
 
+  <!-- LISTAS SUSPENSAS -->
+  <div id="hospitais" class="info-list">
+    <ul>
+      <li><a href="https://htri.org.br/hec-4/">Hospital do Sertão Governador Eduardo Campos</a> - Serra Talhada / III Macro / XI Região de Saúde</li>
+      <li><a href="https://fghsaude.org.br/home/unidade/hospital-dom-helder/">Hospital Dom Helder Câmara</a> - Cabo de Santo Agostinho / I Macro / I Região de Saúde</li>
+      <!-- Adicione as outras unidades conforme necessário -->
+    </ul>
+  </div>
+
+  <div id="upas" class="info-list">
+    <ul>
+      <li><a href="https://ismep.org.br/institucional-upa-barra-de-jangada/">UPA Barra de Jangada</a> - Jaboatão dos Guararapes / I Macro / I Região de Saúde</li>
+      <li><a href="https://portal.saude.pe.gov.br/upase-oss/upa-cabo-de-santo-agostinho/">UPA Cabo de Santo Agostinho</a> - Cabo de Santo Agostinho / I Macro / I Região de Saúde</li>
+      <!-- Adicione as outras UPAs conforme necessário -->
+    </ul>
+  </div>
+
+  <div id="upaes" class="info-list">
+    <ul>
+      <li><a href="https://htri.org.br/upae-afogados-4/">UPAE Afogados da Ingazeira</a> - Afogados da Ingazeira / III Macro / X Região de Saúde</li>
+      <li><a href="https://hcpgestao.org.br/unidades/1">UPAE Arcoverde</a> - Arcoverde / III Macro / VI Região de Saúde</li>
+      <!-- Adicione as outras UPAEs conforme necessário -->
+    </ul>
+  </div>
+
+  <div id="carretas" class="info-list">
+    <ul>
+      <li><a href="https://htri.org.br/carretas-da-mulher-4/">Carretas da Mulher Pernambucana</a></li>
+    </ul>
+  </div>
+
+  <!-- Continuação -->
   <main class="container">
     <section class="card">
       <h2>Nosso Papel</h2>
@@ -179,6 +258,18 @@
   <footer>
     &copy; 2025 — Diretoria Geral de Monitoramento dos Contratos de Gestão (DGMCG)
   </footer>
+
+  <script>
+    // Mostrar ou esconder as listas suspensas ao clicar nos botões
+    function toggleList(tipo) {
+      const listas = document.querySelectorAll('.info-list');
+      listas.forEach(list => list.style.display = 'none');
+      const selectedList = document.getElementById(tipo);
+      if (selectedList) {
+        selectedList.style.display = 'block';
+      }
+    }
+  </script>
   
 <!-- 🌐 DEGEMINHO BOTÃO FLUTUANTE + LOGIN GOOGLE -->
 <style>
