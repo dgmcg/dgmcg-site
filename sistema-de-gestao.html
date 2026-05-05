@@ -29,18 +29,6 @@
     @media (max-width:720px){ .apps{grid-template-columns:1fr} }
     footer{background:var(--azul-escuro); color:#fff; text-align:center; padding:16px; margin-top:36px}
   </style>
-
-  <script>
-    // Solicita senha ao carregar a página
-    document.addEventListener("DOMContentLoaded", function () {
-      const senhaCorreta = "dgmcg@2025";
-      let senha = prompt("Digite a senha para acessar o Portal DGMCG:");
-      if (senha !== senhaCorreta) {
-        alert("Senha incorreta! Acesso negado.");
-        window.location.href = "https://dgmcg.github.io/dgmcg-site/"; // Redireciona caso a senha esteja errada
-      }
-    });
-  </script>
 </head>
 <body>
   <header>
