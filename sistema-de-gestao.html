@@ -16,7 +16,7 @@
     .container{max-width:1200px; margin:32px auto; padding:0 20px}
     h1{color:var(--azul-escuro); text-align:center; margin:0 0 8px}
     .lead{max-width:900px; margin:0 auto 24px; text-align:center}
-    .apps{display:grid; grid-template-columns:repeat(2, minmax(240px,1fr)); gap:20px; align-items:stretch}
+    .apps{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:20px; align-items:stretch}
     .app-card{background:var(--card); border-radius:14px; padding:20px; box-shadow:0 10px 24px rgba(0,0,0,.08); display:flex; flex-direction:column; align-items:center; justify-content:center; text-decoration:none; position:relative; outline:0}
     .app-card img{width:220px; max-width:70%; height:auto; display:block; margin:8px auto 14px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.15))}
     .app-card .label{font-weight:800; color:var(--azul-escuro); letter-spacing:.5px}
@@ -69,6 +69,16 @@
         <img src="GTTRCG.png" alt="Ícone GTTRCG"/>
         <div class="label">GTTRCG</div>
       </a>
+
+
+           <!-- SEI Monitor -->
+      <a class="app-card"
+         href="sistema-de-gestao/sei-monitor/"
+         data-tooltip="Acompanhamento dos processos SEI dos Contratos de Gestão: fluxos, prazos, tarefas, relatórios e resumos com IA"
+         aria-label="Abrir SEI Monitor — acompanhamento dos processos SEI">
+        <img src="SEI-MONITOR.png" alt="Ícone SEI Monitor"/>
+        <div class="label">SEI MONITOR</div>
+      </a> 
     </section>
   </main>
 
