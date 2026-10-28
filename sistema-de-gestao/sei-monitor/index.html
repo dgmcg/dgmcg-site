@@ -460,6 +460,12 @@
       .tar-nota { font-size: .74rem; color: #374151; background: #f0fdf4; border-left: 3px solid #16a34a; padding: 4px 8px; margin-top: 4px; border-radius: 4px; }
       .tar-pessoa { display: inline-block; background: #eef2ff; color: #3730a3; border-radius: 10px; padding: 0 7px; margin: 1px 0; }
       .tar-pessoa.tar-eu { background: #fde68a; color: #78350f; font-weight: 700; }
+      .tar-vis { display: inline-block; font-size: .64rem; font-weight: 700; color: #475569; background: #f1f5f9; border-radius: 8px; padding: 0 6px; vertical-align: middle; white-space: nowrap; }
+      .tar-vis-ops { display: flex; gap: 12px; flex-wrap: wrap; font-size: .8rem; }
+      .tar-vis-ops label { display: flex; gap: 5px; align-items: center; cursor: pointer; }
+      .tar-vis-info { font-size: .74rem; color: #1e3a8a; background: #eff6ff; border-radius: 6px; padding: 0 8px; margin-top: 8px; }
+      .tar-vis-info:not(:empty) { padding: 6px 8px; }
+      .tar-eu-op { background: #fffbeb; border-radius: 6px; padding: 2px 4px; }
       .tar-acoes { display: flex; gap: 10px; align-items: center; margin-top: 6px; }
       .tar-acoes:empty { display: none; }
       .tar-btn { padding: 4px 12px !important; font-size: .74rem !important; }
@@ -472,7 +478,7 @@
       #tar-modal-fundo { position: fixed; inset: 0; background: rgba(15,23,42,.45); z-index: 950; display: flex; align-items: center; justify-content: center; padding: 16px; }
       .tar-modal { background: #fff; border-radius: 12px; width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; padding: 18px 18px 14px; box-shadow: 0 20px 50px rgba(0,0,0,.25); font-size: .84rem; color: #111827; }
       .tar-modal h3 { margin: 0 0 12px; font-size: 1rem; color: #1e3a8a; }
-      .tar-modal textarea, .tar-modal input[type=text] { width: 100%; box-sizing: border-box; border: 1px solid #d1d5db; border-radius: 6px; padding: 8px; font: inherit; font-size: .82rem; }
+      .tar-modal textarea, .tar-modal input[type=text], .tar-modal input[type=password] { width: 100%; box-sizing: border-box; border: 1px solid #d1d5db; border-radius: 6px; padding: 8px; font: inherit; font-size: .82rem; }
       .tar-rot { display: block; font-weight: 700; font-size: .76rem; color: #374151; margin: 10px 0 4px; }
       .tar-rot small { font-weight: 400; color: #6b7280; }
       .tar-usuarios { display: flex; flex-direction: column; gap: 4px; max-height: 180px; overflow-y: auto; border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; }
@@ -701,6 +707,7 @@
       <span id="user-nome"></span> <span id="perfil-selo" class="perfil-selo" hidden></span>
       <button onclick="botaoTarefasSite()" title="Lista de tarefas">📋 Tarefas<span id="tar-topo-badge" class="tar-topo-badge" hidden></span></button>
       <button onclick="abrirConfigIA()" title="Configuração de IA">🤖 IA</button>
+      <button onclick="abrirTrocarSenhaSite()" title="Alterar minha senha">🔑 Senha</button>
       <button id="btn-config" onclick="mostrarConfig()" style="display:none;">⚙ Configurações</button>
       <button onclick="fazerLogout()">Sair</button>
     </div>
@@ -808,7 +815,37 @@
   const contextoProcessoMod = () => null;   // no site o despacho não é criado no SEI; use a extensão
   const usarModeloNoProcessoMod = () => {};
   const copiarTextoMod = (t) => copiarTextoSite(t);
-  function botaoTarefasSite() { if (perfilSite === 'admin') abrirNovaTarefaTar(); else abrirListaTarefasTar(); }
+  function botaoTarefasSite() { if (['admin', 'monitor'].includes(perfilSite)) abrirNovaTarefaTar(); else abrirListaTarefasTar(); }
+
+  // ==================== ALTERAR MINHA SENHA ====================
+  async function abrirTrocarSenhaSite() {
+    const m = modalTar(`<h3>🔑 Alterar minha senha</h3>
+      <label class="tar-rot">Senha atual</label><input type="password" data-s="atual" autocomplete="current-password">
+      <label class="tar-rot">Nova senha <small>(mínimo 8 caracteres)</small></label><input type="password" data-s="nova" autocomplete="new-password">
+      <label class="tar-rot">Repita a nova senha</label><input type="password" data-s="rep" autocomplete="new-password">
+      <div class="tar-dica" data-s="st"></div>
+      <div class="tar-rodape"><button class="btn btn-secondary" data-tar-fechar>Cancelar</button> <button class="btn" data-s="ok">Alterar senha</button></div>`);
+    const q = (n) => m.el.querySelector(`[data-s="${n}"]`);
+    q('atual').focus();
+    m.el.addEventListener('keydown', (e) => { if (e.key === 'Enter') q('ok').click(); });
+    q('ok').onclick = async () => {
+      const st = q('st'), atual = q('atual').value, nova = q('nova').value;
+      st.style.color = '#b91c1c';
+      if (!atual) { st.textContent = 'Informe a senha atual.'; return; }
+      if (nova.length < 8) { st.textContent = 'A nova senha precisa ter pelo menos 8 caracteres.'; return; }
+      if (nova !== q('rep').value) { st.textContent = 'As duas novas senhas não são iguais.'; return; }
+      if (nova === atual) { st.textContent = 'A nova senha precisa ser diferente da atual.'; return; }
+      q('ok').disabled = true; st.style.color = ''; st.textContent = 'Conferindo…';
+      const { data: { user } } = await supa.auth.getUser();
+      const conf = await supa.auth.signInWithPassword({ email: user.email, password: atual });
+      if (conf.error) { q('ok').disabled = false; st.style.color = '#b91c1c'; st.textContent = 'Senha atual incorreta.'; return; }
+      const { error } = await supa.auth.updateUser({ password: nova });
+      q('ok').disabled = false;
+      if (error) { st.style.color = '#b91c1c'; st.textContent = 'Não consegui alterar: ' + error.message; return; }
+      m.el.innerHTML = '<h3>🔑 Senha alterada</h3><div class="tar-dica">Pronto! Use a nova senha no próximo acesso — no site e na extensão.</div><div class="tar-rodape"><button class="btn" data-tar-fechar>OK</button></div>';
+      m.el.querySelector('[data-tar-fechar]').onclick = m.fechar;
+    };
+  }
   const CONTROLES_ESCRITA_SITE = ['[onclick^="standbyDetalheSite"]', '[onclick^="mostrarEditarProcesso"]', '[onclick^="confirmarExcluirProcesso"]', '[onclick^="sincronizarChecklist"]',
     '[onclick^="resolverNota"]', '[onclick^="salvarResumoColado"]', '[onclick^="confirmarMarcarEtapa"]', '#btn-salvar-edicao', '.sm-secao-nota'];
   function aplicarPerfilSite() {
@@ -1118,10 +1155,12 @@
 
   function htmlItemTar(t, historico) {
     const perfil = perfilTar();
-    const podeConcluir = !historico && perfil !== 'consultor' && (t.minha || perfil === 'admin');
+    const podeConcluir = !historico && perfil !== 'consultor' && (t.minha || t.criei || (perfil === 'admin' && t.visibilidade !== 'envolvidos'));
+    const selo = t.so_para_mim ? '<span class="tar-vis" title="Só você vê esta tarefa">🔒 só você</span>'
+      : t.visibilidade === 'envolvidos' ? '<span class="tar-vis" title="Só quem criou e quem recebeu veem esta tarefa">👥 só envolvidos</span>' : '';
     const pessoas = t.atribuidos.map((a) => `<span class="tar-pessoa${_tarDados && a.id === _tarDados.meu_id ? ' tar-eu' : ''}">${escFD(a.nome)}</span>`).join(' ');
     return `<div class="tar-item${t.minha && !historico ? ' tar-minha' : ''}">
-      <div class="tar-texto">${escFD(t.texto).replace(/\n/g, '<br>')}</div>
+      <div class="tar-texto">${escFD(t.texto).replace(/\n/g, '<br>')} ${selo}</div>
       ${t.processo_sei ? `<div class="tar-meta">Processo: <b>${escFD(t.processo_sei)}</b></div>` : ''}
       <div class="tar-meta">Lançada por <b>${escFD(t.criado_por)}</b> em ${escFD(dataHoraTar(t.criado_em))}</div>
       <div class="tar-meta">Para: ${pessoas || '—'}</div>
@@ -1130,8 +1169,8 @@
         ${t.nota_conclusao ? `<div class="tar-nota">📝 ${escFD(t.nota_conclusao).replace(/\n/g, '<br>')}</div>` : ''}` : ''}
       <div class="tar-acoes">
         ${podeConcluir ? `<button class="btn tar-btn" data-tar-concluir="${escFD(t.id)}">✓ Concluir</button>` : ''}
-        ${perfil === 'admin' ? `<button class="btn-link tar-del" data-tar-excluir="${escFD(t.id)}" title="Excluir tarefa">excluir</button>` : ''}
-        ${historico && perfil === 'admin' ? `<button class="btn-link" data-tar-reabrir="${escFD(t.id)}">reabrir</button>` : ''}
+        ${t.pode_excluir ? `<button class="btn-link tar-del" data-tar-excluir="${escFD(t.id)}" title="Excluir tarefa">excluir</button>` : ''}
+        ${historico && t.pode_excluir ? `<button class="btn-link" data-tar-reabrir="${escFD(t.id)}">reabrir</button>` : ''}
       </div>
     </div>`;
   }
@@ -1151,7 +1190,7 @@
         <div class="tar-abas">
           <button class="${_tarAba === 'abertas' ? 'on' : ''}" data-tar-aba="abertas">Abertas (${d.abertas.length})</button>
           <button class="${_tarAba === 'historico' ? 'on' : ''}" data-tar-aba="historico">Histórico (${d.historico.length})</button>
-          ${perfilTar() === 'admin' ? '<button class="tar-nova" data-tar="nova">+ Nova tarefa</button>' : ''}
+          ${['admin', 'monitor'].includes(perfilTar()) ? '<button class="tar-nova" data-tar="nova">+ Nova tarefa</button>' : ''}
         </div>
         <div class="tar-lista">${lista.length ? lista.map((t) => htmlItemTar(t, _tarAba === 'historico')).join('')
           : `<div class="tar-dica">${_tarAba === 'abertas' ? 'Nenhuma tarefa aberta.' : 'Nenhuma tarefa concluída ainda.'}</div>`}</div>
@@ -1208,7 +1247,10 @@
   }
 
   async function abrirNovaTarefaTar() {
-    if (perfilTar() !== 'admin') { abrirListaTarefasTar(); return; }
+    const souAdmin = perfilTar() === 'admin';
+    if (!souAdmin && perfilTar() !== 'monitor') { abrirListaTarefasTar(); return; }
+    if (!_tarDados || !_tarDados.meu_id) await carregarTarefasTar();
+    const meuId = _tarDados && _tarDados.meu_id;
     const m = modalTar('<h3>📋 Nova tarefa</h3><div class="tar-dica"><span class="spinner"></span> Carregando usuários...</div>');
     const r = await api('tarefas/usuarios');
     if (!r || !r.ok) { m.el.innerHTML = `<h3>📋 Nova tarefa</h3><div class="tar-dica">${escFD((r && r.erro) || 'Erro ao carregar usuários.')}</div><div class="tar-rodape"><button class="btn btn-secondary" data-tar-fechar>Fechar</button></div>`; m.el.querySelector('[data-tar-fechar]').onclick = m.fechar; return; }
@@ -1221,13 +1263,30 @@
       <input data-tar-campo="sei" type="text" placeholder="Nº do processo SEI">
       <label class="tar-rot">Prazo <small>(opcional — quem recebe vê o alerta ⏱ com o tempo restante)</small></label>
       <div data-tar-campo="prazo">${htmlCamposPrazoPz({})}</div>
-      <label class="tar-rot">Atribuir a <small>(um ou mais; consultores só visualizam e não recebem tarefas)</small></label>
-      <div class="tar-usuarios">${r.usuarios.filter((u) => u.perfil !== 'consultor').map((u) => `<label><input type="checkbox" value="${escFD(u.id)}"> ${escFD(u.nome)} <small>${escFD(rot[u.perfil] || '')}</small></label>`).join('')}</div>
+      <label class="tar-rot">Para quem <small>(um ou mais; consultores só visualizam e não recebem tarefas)</small></label>
+      <div class="tar-usuarios">${r.usuarios.filter((u) => u.perfil !== 'consultor').sort((a, b) => (b.id === meuId) - (a.id === meuId)).map((u) => `<label${u.id === meuId ? ' class="tar-eu-op"' : ''}><input type="checkbox" value="${escFD(u.id)}"> ${u.id === meuId ? '<b>Eu mesmo(a)</b> — lembrete pessoal' : escFD(u.nome)} <small>${u.id === meuId ? '' : escFD(rot[u.perfil] || '')}</small></label>`).join('')}</div>
+      ${souAdmin ? `<label class="tar-rot">Quem pode ver</label>
+      <div class="tar-vis-ops" data-tar-campo="vis">
+        <label><input type="radio" name="tar-vis" value="todos" checked> Todos os usuários</label>
+        <label><input type="radio" name="tar-vis" value="envolvidos"> Só quem recebeu (e eu)</label>
+      </div>` : ''}
+      <div class="tar-vis-info" data-tar-campo="vis-info"></div>
       <div class="tar-dica" data-tar-campo="st"></div>
       <div class="tar-rodape"><button class="btn btn-secondary" data-tar-fechar>Cancelar</button> <button class="btn" data-tar-campo="salvar">Atribuir tarefa</button></div>`;
     m.el.querySelectorAll('[data-tar-fechar]').forEach((b) => b.onclick = m.fechar);
     const q = (n) => m.el.querySelector(`[data-tar-campo="${n}"]`);
     q('texto').focus();
+    const infoVis = () => {
+      const sel = [...m.el.querySelectorAll('.tar-usuarios input:checked')].map((i) => i.value);
+      const soEu = sel.length === 1 && sel[0] === meuId;
+      const vis = souAdmin ? (m.el.querySelector('input[name="tar-vis"]:checked') || {}).value : 'envolvidos';
+      if (q('vis')) q('vis').style.display = soEu ? 'none' : '';
+      q('vis-info').innerHTML = !sel.length ? ''
+        : soEu ? '🔒 Lembrete pessoal: só você verá esta tarefa.'
+        : vis === 'todos' ? '🌐 Todos os usuários verão esta tarefa; o aviso dourado aparece só para quem recebeu.'
+        : '👥 Só você e quem recebeu verão esta tarefa.';
+    };
+    m.el.addEventListener('change', infoVis);
     q('salvar').onclick = async () => {
       const texto = q('texto').value.trim();
       const usuarios = [...m.el.querySelectorAll('.tar-usuarios input:checked')].map((i) => i.value);
@@ -1235,7 +1294,8 @@
       if (!usuarios.length) { q('st').textContent = 'Escolha pelo menos um usuário.'; return; }
       q('salvar').disabled = true; q('st').textContent = 'Salvando...';
       const pz = lerCamposPrazoPz(q('prazo'));
-      const s = await api('tarefas/criar', { texto, usuarios, processo_sei: q('sei').value.trim() || null, prazo: pz.qtd ? pz : null });
+      const visibilidade = souAdmin ? ((m.el.querySelector('input[name="tar-vis"]:checked') || {}).value || 'todos') : 'envolvidos';
+      const s = await api('tarefas/criar', { texto, usuarios, visibilidade, processo_sei: q('sei').value.trim() || null, prazo: pz.qtd ? pz : null });
       if (!s || !s.ok) { q('salvar').disabled = false; q('st').textContent = '⚠ ' + ((s && s.erro) || 'Não consegui salvar.'); return; }
       m.fechar(); _tarAberto = true; _tarAba = 'abertas';
       await carregarTarefasTar();
